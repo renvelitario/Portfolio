@@ -4,6 +4,8 @@ import Icon from "../components/ui/Icon.jsx";
 import SocialLinks from "../components/SocialLinks.jsx";
 import { education, experience, languages, skills, stats } from "../data/content.js";
 import { useLocalTime } from "../hooks/useLocalTime.js";
+import akaliImage from "../assets/images/akali.jpg";
+import profileImage from "../assets/images/IMG_2129.JPG";
 import "./HomePage.css";
 
 export default function HomePage() {
@@ -13,7 +15,10 @@ export default function HomePage() {
     <main className="parent">
       <Card className="div1">
         <div className="profile-content">
-          <div className="profile-image" aria-hidden="true" />
+          <div className="profile-avatar" aria-label="Ren Velitario avatar">
+            <img className="profile-image profile-image-front" src={profileImage} alt="Ren Velitario" />
+            <img className="profile-image profile-image-back" src={akaliImage} alt="" aria-hidden="true" />
+          </div>
           <h1>Ren Velitario</h1>
           <p className="subtitle">UI/UX Designer - Web Developer - Digital Creative</p>
         </div>
