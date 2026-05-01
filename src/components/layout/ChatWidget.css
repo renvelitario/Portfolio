@@ -174,3 +174,19 @@
   background: var(--text);
   color: var(--bg);
 }
+
+@media (max-width: 560px) {
+  .chat-fab {
+    right: auto;
+    bottom: auto;
+  }
+
+  .chat-widget {
+    right: 16px;
+    bottom: 16px;
+  }
+
+  .chat-widget.open {
+    width: calc(100vw - 32px);
+  }
+}

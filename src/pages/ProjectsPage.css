@@ -97,12 +97,6 @@ body.light-mode .project-filters span:first-child {
   gap: 12px;
 }
 
-.projects-loading {
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.5;
-}
-
 .project-row {
   display: flex;
   gap: 12px;
@@ -117,10 +111,6 @@ body.light-mode .project-filters span:first-child {
   transition:
     border-color 0.3s ease,
     box-shadow 0.3s ease;
-}
-
-.project-card.featured {
-  flex: 0 1 calc(50% - 6px);
 }
 
 .project-preview {
@@ -296,8 +286,7 @@ body.light-mode .project-filters span:first-child {
     flex-direction: column;
   }
 
-  .project-card,
-  .project-card.featured {
+  .project-card {
     flex-basis: auto;
   }
 

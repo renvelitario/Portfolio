@@ -1,0 +1,98 @@
+import { useEffect, useMemo, useState } from "react";
+import DotField from "./components/background/DotField.jsx";
+import ChatWidget from "./components/layout/ChatWidget.jsx";
+import Footer from "./components/layout/Footer.jsx";
+import Header from "./components/layout/Header.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import ProjectsPage from "./pages/ProjectsPage.jsx";
+import ContactPage from "./pages/ContactPage.jsx";
+import { useCardGlow } from "./hooks/useCardGlow.js";
+import { useTheme } from "./hooks/useTheme.js";
+import "./App.css";
+
+function getCurrentRoute() {
+  const path = window.location.pathname.toLowerCase();
+
+  if (path.endsWith("/projects") || path.endsWith("/projects.html")) {
+    return "projects";
+  }
+
+  if (path.endsWith("/contact") || path.endsWith("/contact.html")) {
+    return "contact";
+  }
+
+  return "home";
+}
+
+function getPageMeta(route) {
+  if (route === "projects") {
+    return { title: "Projects | @renvelitario", page: <ProjectsPage /> };
+  }
+
+  if (route === "contact") {
+    return { title: "Contact | @renvelitario", page: <ContactPage /> };
+  }
+
+  return { title: "@renvelitario", page: <HomePage /> };
+}
+
+export default function App() {
+  const [route, setRoute] = useState(getCurrentRoute);
+  const { isLight, toggleTheme } = useTheme();
+  useCardGlow();
+
+  useEffect(() => {
+    const handlePopState = () => setRoute(getCurrentRoute());
+    window.addEventListener("popstate", handlePopState);
+    return () => window.removeEventListener("popstate", handlePopState);
+  }, []);
+
+  const { title, page } = useMemo(() => getPageMeta(route), [route]);
+
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
+
+  function handleNavigate(event, href) {
+    const url = new URL(href, window.location.origin);
+
+    if (url.origin !== window.location.origin) {
+      return;
+    }
+
+    event.preventDefault();
+    window.history.pushState({}, "", url.pathname);
+    setRoute(getCurrentRoute());
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  return (
+    <>
+      <div className="site-background" aria-hidden="true">
+        <DotField
+          dotRadius={isLight ? 2.4 : 2.8}
+          dotSpacing={isLight ? 20 : 22}
+          cursorRadius={420}
+          bulgeStrength={56}
+          glowRadius={180}
+          sparkle={false}
+          waveAmplitude={0}
+          gradientFrom={isLight ? "rgba(23, 23, 23, 0.18)" : "rgba(245, 245, 245, 0.2)"}
+          gradientTo={isLight ? "rgba(104, 104, 104, 0.1)" : "rgba(159, 159, 159, 0.08)"}
+          glowColor={isLight ? "rgba(255, 255, 255, 0.9)" : "rgba(245, 245, 245, 0.18)"}
+        />
+      </div>
+      <div className="bento-wrap">
+        <Header
+          currentRoute={route}
+          isLight={isLight}
+          onNavigate={handleNavigate}
+          onToggleTheme={toggleTheme}
+        />
+        {page}
+        <Footer />
+      </div>
+      <ChatWidget />
+    </>
+  );
+}

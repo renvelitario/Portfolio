@@ -1,0 +1,32 @@
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.links a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  text-decoration: none;
+  color: var(--text);
+  font-weight: 500;
+  transition: 0.2s ease;
+  border-radius: 50%;
+  background: var(--chip);
+  border: 1px solid var(--border);
+}
+
+.links svg {
+  width: 16px;
+  height: 16px;
+  stroke-width: 2;
+}
+
+.links a:hover {
+  color: var(--text);
+  background: var(--chip-hover);
+}

@@ -1,0 +1,33 @@
+.bento-wrap {
+  width: min(100%, 1180px);
+  margin: auto;
+  position: relative;
+  z-index: 1;
+}
+
+.site-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.72;
+}
+
+.site-background::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05), transparent 34%),
+    linear-gradient(180deg, transparent 0%, var(--bg) 100%);
+}
+
+body.light-mode .site-background {
+  opacity: 0.52;
+}
+
+body.light-mode .site-background::after {
+  background:
+    radial-gradient(circle at 50% 0%, rgba(0, 0, 0, 0.045), transparent 34%),
+    linear-gradient(180deg, transparent 0%, var(--bg) 100%);
+}
