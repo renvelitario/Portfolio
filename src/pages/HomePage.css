@@ -154,6 +154,21 @@
   height: 10px;
   border-radius: 50%;
   background: #4ade80;
+  box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.12), 0 0 16px rgba(74, 222, 128, 0.75);
+  animation: statusBlink 1.8s ease-in-out infinite;
+}
+
+@keyframes statusBlink {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 0 4px rgba(74, 222, 128, 0.12), 0 0 16px rgba(74, 222, 128, 0.75);
+  }
+
+  50% {
+    opacity: 0.45;
+    box-shadow: 0 0 0 2px rgba(74, 222, 128, 0.06), 0 0 8px rgba(74, 222, 128, 0.35);
+  }
 }
 
 .skills,

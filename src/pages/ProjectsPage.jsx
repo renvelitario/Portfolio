@@ -1,7 +1,6 @@
 import Card from "../components/ui/Card.jsx";
-import CardTitle from "../components/ui/CardTitle.jsx";
 import Icon from "../components/ui/Icon.jsx";
-import { processSteps, projects, summaryTiles } from "../data/content.js";
+import { processSteps, projects } from "../data/content.js";
 import "./ProjectsPage.css";
 
 function ProjectCard({ project }) {
@@ -50,30 +49,7 @@ function projectRows(items) {
 
 export default function ProjectsPage() {
   return (
-    <main className="projects-page">
-      <section className="projects-hero">
-        <Card className="projects-intro">
-          <CardTitle icon="layout-dashboard">Selected Work</CardTitle>
-          <h1>Design-led web projects built with clean execution.</h1>
-          <p>
-            A focused collection of interface, frontend, and creative systems work across portfolio
-            sites, dashboards, ecommerce flows, and digital brand assets.
-          </p>
-        </Card>
-
-        <div className="project-summary">
-          {summaryTiles.map((tile) => (
-            <Card className="summary-tile" key={tile.label}>
-              <CardTitle icon={tile.icon}>{tile.label}</CardTitle>
-              <div>
-                <strong>{tile.value}</strong>
-                <span>{tile.text}</span>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
+    <main className="projects-page" id="projects-top">
       <div className="project-toolbar">
         <h2>Featured Projects</h2>
         <div className="project-filters" aria-label="Project categories">
@@ -102,6 +78,11 @@ export default function ProjectsPage() {
           </Card>
         ))}
       </section>
+
+      <div className="page-end">
+        <p>That's the end for now. Thanks for taking a look.</p>
+        <a href="#projects-top">Back to top</a>
+      </div>
     </main>
   );
 }

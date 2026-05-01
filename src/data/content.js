@@ -62,33 +62,6 @@ export const education = [
 
 export const languages = ["Filipino", "English", "Korean"];
 
-export const summaryTiles = [
-  {
-    icon: "folder-kanban",
-    label: "Projects",
-    value: "15+",
-    text: "Shipped academic, freelance, and personal builds."
-  },
-  {
-    icon: "blocks",
-    label: "Stack",
-    value: "UI + Dev",
-    text: "HTML, CSS, JavaScript, React, Figma, and media tools."
-  },
-  {
-    icon: "sparkles",
-    label: "Focus",
-    value: "Usability",
-    text: "Clear flows, responsive layouts, and visual polish."
-  },
-  {
-    icon: "map-pin",
-    label: "Based In",
-    value: "Laguna",
-    text: "Available for remote and local collaborations."
-  }
-];
-
 export const projects = [
   {
     title: "Operations Dashboard Concept",

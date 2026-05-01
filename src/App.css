@@ -10,7 +10,7 @@
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  opacity: 0.72;
+  opacity: 0.6;
 }
 
 .site-background::after {
@@ -18,7 +18,7 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05), transparent 34%),
+    radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.035), transparent 34%),
     linear-gradient(180deg, transparent 0%, var(--bg) 100%);
 }
 

@@ -77,9 +77,9 @@ export default function App() {
           glowRadius={180}
           sparkle={false}
           waveAmplitude={0}
-          gradientFrom={isLight ? "rgba(23, 23, 23, 0.18)" : "rgba(245, 245, 245, 0.2)"}
-          gradientTo={isLight ? "rgba(104, 104, 104, 0.1)" : "rgba(159, 159, 159, 0.08)"}
-          glowColor={isLight ? "rgba(255, 255, 255, 0.9)" : "rgba(245, 245, 245, 0.18)"}
+          gradientFrom={isLight ? "rgba(23, 23, 23, 0.18)" : "rgba(245, 245, 245, 0.16)"}
+          gradientTo={isLight ? "rgba(104, 104, 104, 0.1)" : "rgba(180, 180, 180, 0.06)"}
+          glowColor={isLight ? "rgba(255, 255, 255, 0.9)" : "rgba(245, 245, 245, 0.12)"}
         />
       </div>
       <div className="bento-wrap">

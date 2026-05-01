@@ -2,55 +2,6 @@
   min-height: calc(100vh - 164px);
 }
 
-.projects-hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.projects-intro {
-  min-height: 286px;
-  justify-content: space-between;
-}
-
-.projects-intro h1 {
-  max-width: 720px;
-  font-size: 4.8rem;
-  line-height: 0.96;
-  letter-spacing: 0;
-}
-
-.projects-intro p {
-  max-width: 620px;
-  color: var(--soft);
-  font-size: 15px;
-  line-height: 1.6;
-}
-
-.project-summary {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 12px;
-}
-
-.summary-tile {
-  min-height: 137px;
-  justify-content: space-between;
-}
-
-.summary-tile strong {
-  display: block;
-  font-size: 2rem;
-  line-height: 1;
-}
-
-.summary-tile span {
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.35;
-}
-
 .project-toolbar {
   display: flex;
   align-items: center;
@@ -153,28 +104,28 @@ body.light-mode .project-filters span:first-child {
   background:
     radial-gradient(circle at 78% 28%, rgba(74, 222, 128, 0.22), transparent 28%),
     linear-gradient(145deg, rgba(255, 255, 255, 0.12), transparent 46%),
-    #181820;
+    #101010;
 }
 
 .preview-shop {
   background:
     radial-gradient(circle at 22% 74%, rgba(245, 158, 11, 0.24), transparent 30%),
     linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 48%),
-    #181820;
+    #101010;
 }
 
 .preview-brand {
   background:
     radial-gradient(circle at 74% 68%, rgba(56, 189, 248, 0.2), transparent 32%),
     linear-gradient(145deg, rgba(255, 255, 255, 0.12), transparent 46%),
-    #181820;
+    #101010;
 }
 
 .preview-portfolio {
   background:
     radial-gradient(circle at 30% 24%, rgba(244, 114, 182, 0.2), transparent 30%),
     linear-gradient(145deg, rgba(255, 255, 255, 0.12), transparent 46%),
-    #181820;
+    #101010;
 }
 
 .project-meta {
@@ -276,8 +227,42 @@ body.light-mode .project-filters span:first-child {
   line-height: 1.5;
 }
 
+.page-end {
+  margin: 24px auto 0;
+  max-width: 360px;
+  text-align: center;
+}
+
+.page-end p {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.page-end a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.page-end a:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.38);
+}
+
 @media (max-width: 1100px) {
-  .projects-hero,
   .process-row {
     grid-template-columns: 1fr;
   }
@@ -298,25 +283,9 @@ body.light-mode .project-filters span:first-child {
   .project-filters {
     justify-content: flex-start;
   }
-
-  .projects-intro h1 {
-    font-size: 3.4rem;
-  }
 }
 
 @media (max-width: 620px) {
-  .project-summary {
-    grid-template-columns: 1fr;
-  }
-
-  .projects-intro {
-    min-height: 250px;
-  }
-
-  .projects-intro h1 {
-    font-size: 2.45rem;
-  }
-
   .project-actions {
     flex-direction: column;
   }
