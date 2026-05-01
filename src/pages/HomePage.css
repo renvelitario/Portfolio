@@ -44,7 +44,7 @@
   grid-row: span 3 / span 3;
   grid-column-start: 6;
   grid-row-start: 1;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 
 .div6 {
@@ -246,27 +246,36 @@
 
 .location {
   display: flex;
-  flex: 1;
+  flex: 0 0 auto;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 18px;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 8px;
+  padding-top: 34px;
+  text-align: center;
+}
+
+.location-kicker {
+  color: var(--soft);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+  margin-bottom: 0;
 }
 
 .div5 h2 {
-  font-size: 2rem;
+  font-size: 1.35rem;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.1;
   letter-spacing: 0;
+  margin-bottom: 0;
 }
 
 .timezone {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: center;
   width: 100%;
-  padding-top: 14px;
-  border-top: 1px solid var(--border);
 }
 
 .timezone p {
@@ -274,8 +283,12 @@
   margin-bottom: 0;
 }
 
+.timezone span {
+  color: var(--muted);
+}
+
 .timezone #local-time {
-  text-align: right;
+  text-align: center;
   margin-bottom: 0;
 }
 

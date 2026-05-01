@@ -80,17 +80,14 @@ export default function HomePage() {
       </Card>
 
       <Card className="div5">
-        <CardTitle icon="map-pin">Location</CardTitle>
         <div className="location">
-          <h2>
-            Laguna,
-            <br />
-            Philippines
-          </h2>
+          <p className="location-kicker">Based in</p>
+          <h2>Laguna, Philippines</h2>
 
           <div className="timezone">
-            <p>GMT +8</p>
-            <p id="local-time">{localTime}</p>
+            <p>
+              GMT +8 <span aria-hidden="true">|</span> <span id="local-time">{localTime}</span>
+            </p>
           </div>
         </div>
       </Card>
