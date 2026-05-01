@@ -1,6 +1,7 @@
 import Card from "../components/ui/Card.jsx";
 import CardTitle from "../components/ui/CardTitle.jsx";
 import Icon from "../components/ui/Icon.jsx";
+import { Globe } from "../components/ui/globe.tsx";
 import SocialLinks from "../components/SocialLinks.jsx";
 import { education, experience, languages, skills, stats } from "../data/content.js";
 import { useLocalTime } from "../hooks/useLocalTime.js";
@@ -80,6 +81,10 @@ export default function HomePage() {
       </Card>
 
       <Card className="div5">
+        <div className="location-globe-horizon" aria-hidden="true">
+          <Globe className="location-globe" />
+        </div>
+
         <div className="location">
           <p className="location-kicker">Based in</p>
           <h2>Laguna, Philippines</h2>
