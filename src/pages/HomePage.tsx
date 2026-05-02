@@ -1,9 +1,19 @@
+import { useEffect, useRef, useState, type PointerEvent } from "react";
 import Card from "../components/ui/Card.tsx";
 import CardTitle from "../components/ui/CardTitle.tsx";
 import { Globe } from "../components/ui/globe.tsx";
 import Icon from "../components/ui/Icon.tsx";
 import SocialLinks from "../components/SocialLinks.tsx";
-import { education, experience, languages, skills, stats } from "../data/content.js";
+import {
+  certifications,
+  education,
+  experience,
+  languages,
+  leadershipActivities,
+  skills,
+  stats,
+  testimonials
+} from "../data/content.js";
 import { useLocalTime } from "../hooks/useLocalTime.js";
 import akaliImage from "../assets/images/akali.jpg";
 import profileImage from "../assets/images/IMG_2129.JPG";
@@ -11,6 +21,74 @@ import "./HomePage.css";
 
 export default function HomePage() {
   const localTime = useLocalTime();
+  const testimonialsRef = useRef<HTMLDivElement | null>(null);
+  const dragRef = useRef({
+    isDragging: false,
+    startX: 0,
+    scrollLeft: 0
+  });
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  useEffect(() => {
+    const carousel = testimonialsRef.current;
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (!carousel || reduceMotion || testimonials.length <= 1) {
+      return undefined;
+    }
+
+    const interval = window.setInterval(() => {
+      if (dragRef.current.isDragging) return;
+
+      const nextIndex = (activeTestimonial + 1) % testimonials.length;
+      carousel.scrollTo({ left: carousel.clientWidth * nextIndex, behavior: "smooth" });
+      setActiveTestimonial(nextIndex);
+    }, 3600);
+
+    return () => window.clearInterval(interval);
+  }, [activeTestimonial]);
+
+  function scrollToTestimonial(index: number) {
+    const carousel = testimonialsRef.current;
+    if (!carousel) return;
+
+    carousel.scrollTo({ left: carousel.clientWidth * index, behavior: "smooth" });
+    setActiveTestimonial(index);
+  }
+
+  function handleTestimonialsPointerDown(event: PointerEvent<HTMLDivElement>) {
+    const carousel = testimonialsRef.current;
+    if (!carousel) return;
+
+    dragRef.current = {
+      isDragging: true,
+      startX: event.clientX,
+      scrollLeft: carousel.scrollLeft
+    };
+    carousel.setPointerCapture(event.pointerId);
+  }
+
+  function handleTestimonialsPointerMove(event: PointerEvent<HTMLDivElement>) {
+    const carousel = testimonialsRef.current;
+    if (!carousel || !dragRef.current.isDragging) return;
+
+    const delta = event.clientX - dragRef.current.startX;
+    carousel.scrollLeft = dragRef.current.scrollLeft - delta;
+  }
+
+  function handleTestimonialsPointerEnd(event: PointerEvent<HTMLDivElement>) {
+    const carousel = testimonialsRef.current;
+    dragRef.current.isDragging = false;
+
+    if (!carousel) return;
+
+    carousel.releasePointerCapture(event.pointerId);
+
+    const nextIndex = Math.round(carousel.scrollLeft / carousel.clientWidth);
+    const clampedIndex = Math.max(0, Math.min(testimonials.length - 1, nextIndex));
+    carousel.scrollTo({ left: carousel.clientWidth * clampedIndex, behavior: "smooth" });
+    setActiveTestimonial(clampedIndex);
+  }
 
   return (
     <main className="parent">
@@ -127,22 +205,82 @@ export default function HomePage() {
         <CardTitle icon="graduation-cap">Education</CardTitle>
         <div className="education">
           {education.map((item) => (
-            <div key={item.degree}>
-              <h3>{item.degree}</h3>
-              <h4>{item.focus}</h4>
-              <p>{item.school}</p>
+            <div className="education-item" key={item.degree}>
+              <div>
+                <h3>{item.degree}</h3>
+                <p>{item.focus}</p>
+                <p>{item.school}</p>
+              </div>
+              <span>{item.year}</span>
             </div>
           ))}
         </div>
       </Card>
 
-      <Card className="div9 resume-card">
-        <div>
-          <p>Need my full background?</p>
-          <h3>Download Resume</h3>
+      <Card className="div11">
+        <CardTitle icon="users-round">Leadership</CardTitle>
+        <div className="leadership">
+          {leadershipActivities.map((item) => (
+            <div className="leadership-item" key={item.title}>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.context}</p>
+              </div>
+              <span>{item.year}</span>
+            </div>
+          ))}
         </div>
+      </Card>
 
-        <button type="button">View CV -&gt;</button>
+      <Card className="div9">
+        <CardTitle icon="award">Certifications</CardTitle>
+        <div className="certifications">
+          {certifications.map((item) => (
+            <div className="cert-item" key={`${item.title}-${item.year}`}>
+              <div>
+                <h3>{item.title}</h3>
+                <p>{item.issuer}</p>
+              </div>
+              <span>{item.year}</span>
+            </div>
+          ))}
+        </div>
+      </Card>
+
+      <Card className="div10">
+        <CardTitle icon="quote">Testimonials</CardTitle>
+        <div className="testimonial-carousel">
+          <div
+            className="testimonials"
+            ref={testimonialsRef}
+            onPointerDown={handleTestimonialsPointerDown}
+            onPointerMove={handleTestimonialsPointerMove}
+            onPointerUp={handleTestimonialsPointerEnd}
+            onPointerCancel={handleTestimonialsPointerEnd}
+          >
+            {testimonials.map((item) => (
+              <figure className="testimonial" key={`${item.name}-${item.role}`}>
+                <blockquote>{item.quote}</blockquote>
+                <figcaption>
+                  <strong>{item.name}</strong>
+                  <span>{item.role}</span>
+                </figcaption>
+              </figure>
+            ))}
+          </div>
+          <div className="testimonial-dots" aria-label="Testimonials">
+            {testimonials.map((item, index) => (
+              <button
+                className={activeTestimonial === index ? "active" : undefined}
+                type="button"
+                key={`${item.name}-${index}`}
+                aria-label={`Show testimonial ${index + 1} of ${testimonials.length}`}
+                aria-current={activeTestimonial === index ? "true" : undefined}
+                onClick={() => scrollToTestimonial(index)}
+              />
+            ))}
+          </div>
+        </div>
       </Card>
     </main>
   );

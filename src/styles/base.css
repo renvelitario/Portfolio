@@ -14,6 +14,13 @@
   --accent: #ffffff;
   --chip: rgba(255, 255, 255, 0.045);
   --chip-hover: rgba(255, 255, 255, 0.07);
+  --font-title: 13px;
+  --font-body: 13px;
+  --font-meta: 12px;
+  --font-label: 11px;
+  --line-title: 1.3;
+  --line-body: 1.45;
+  --line-meta: 1.35;
   --pointer-x: -9999px;
   --pointer-y: -9999px;
 }

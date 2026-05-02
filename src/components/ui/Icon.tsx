@@ -1,5 +1,6 @@
 import {
   AtSign,
+  Award,
   Blocks,
   BriefcaseBusiness,
   Clock,
@@ -20,12 +21,15 @@ import {
   Send,
   Sparkles,
   Sun,
+  UsersRound,
   UserRound,
+  Quote,
   X
 } from "lucide-react";
 
 const icons = {
   "at-sign": AtSign,
+  award: Award,
   blocks: Blocks,
   "briefcase-business": BriefcaseBusiness,
   clock: Clock,
@@ -46,7 +50,9 @@ const icons = {
   send: Send,
   sparkles: Sparkles,
   sun: Sun,
+  "users-round": UsersRound,
   "user-round": UserRound,
+  quote: Quote,
   x: X
 };
 

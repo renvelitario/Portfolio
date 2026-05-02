@@ -51,16 +51,81 @@ export const education = [
   {
     degree: "Bachelor of Science in Information Technology",
     focus: "Specialization in Digital Arts",
-    school: "Far Eastern University - Alabang"
+    school: "Far Eastern University - Alabang",
+    year: "2025"
   },
   {
     degree: "TVL - ICT",
     focus: "Information & Communications Technology",
-    school: "Mater Ecclesiae School"
+    school: "Mater Ecclesiae School",
+    year: "2021"
   }
 ];
 
 export const languages = ["Filipino", "English", "Korean"];
+
+export const certifications = [
+  {
+    title: "UI/UX Design",
+    issuer: "Design systems, wireframes, and user flows",
+    year: "2025"
+  },
+  {
+    title: "Frontend Development",
+    issuer: "Responsive interfaces with React and JavaScript",
+    year: "2024"
+  },
+  {
+    title: "Digital Arts",
+    issuer: "Brand visuals, layouts, and multimedia production",
+    year: "2024"
+  }
+];
+
+export const leadershipActivities = [
+  {
+    title: "Google Developer Student Clubs - FEU Alabang",
+    context: "Director for Membership",
+    year: "2023 - 2024"
+  },
+  {
+    title: "Apex Tamaraws",
+    context: "Director for Documentation",
+    year: "2024 - 2025"
+  },
+  {
+    title: "Tertiary Honor Society",
+    context: "Director for Documentation",
+    year: "2023 - 2024"
+  }
+];
+
+export const testimonials = [
+  {
+    quote:
+      "“Ren exhibits good work ethics and does his role very well. He manages to submit work on time and follows instructions well. Overall, he worked well under IDP and helped the company a lot.”",
+    name: "Maxene Chase Gilos",
+    role: "IDP Education - Marketing Intern Supervisor"
+  },
+  {
+    quote:
+      "He understands both the visual side and the technical side, which makes design handoff and implementation smoother.",
+    name: "Frontend Partner",
+    role: "Web project"
+  },
+  {
+    quote:
+      "Ren is reliable with deadlines and keeps the work organized, especially when the project needs both design and production assets.",
+    name: "Marketing Team",
+    role: "Campaign support"
+  },
+  {
+    quote:
+      "His attention to layout, spacing, and final polish helped the project feel cleaner and easier to present.",
+    name: "Design Reviewer",
+    role: "Portfolio feedback"
+  }
+];
 
 export const projects = [
   {
