@@ -1,5 +1,5 @@
-import Card from "../components/ui/Card.jsx";
-import Icon from "../components/ui/Icon.jsx";
+import Card from "../components/ui/Card.tsx";
+import Icon from "../components/ui/Icon.tsx";
 import { processSteps, projects } from "../data/content.js";
 import "./ProjectsPage.css";
 

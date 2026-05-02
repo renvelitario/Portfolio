@@ -1,8 +1,8 @@
-import Card from "../components/ui/Card.jsx";
-import CardTitle from "../components/ui/CardTitle.jsx";
-import Icon from "../components/ui/Icon.jsx";
+import Card from "../components/ui/Card.tsx";
+import CardTitle from "../components/ui/CardTitle.tsx";
 import { Globe } from "../components/ui/globe.tsx";
-import SocialLinks from "../components/SocialLinks.jsx";
+import Icon from "../components/ui/Icon.tsx";
+import SocialLinks from "../components/SocialLinks.tsx";
 import { education, experience, languages, skills, stats } from "../data/content.js";
 import { useLocalTime } from "../hooks/useLocalTime.js";
 import akaliImage from "../assets/images/akali.jpg";
@@ -81,10 +81,6 @@ export default function HomePage() {
       </Card>
 
       <Card className="div5">
-        <div className="location-globe-horizon" aria-hidden="true">
-          <Globe className="location-globe" />
-        </div>
-
         <div className="location">
           <p className="location-kicker">Based in</p>
           <h2>Laguna, Philippines</h2>
@@ -95,6 +91,7 @@ export default function HomePage() {
             </p>
           </div>
         </div>
+        <Globe />
       </Card>
 
       <Card className="div6">

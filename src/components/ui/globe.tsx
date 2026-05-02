@@ -1,84 +1,110 @@
-"use client"
+import { useEffect, useRef } from "react";
+import createGlobe from "cobe";
 
-import { useEffect, useRef } from "react"
-import createGlobe, { type COBEOptions } from "cobe"
+const markers = [
+  {
+    location: [14.1709, 121.2437] as [number, number],
+    size: 0.03,
+    color: [0.02, 0.24, 0.12] as [number, number, number],
+  },
+  {
+    location: [14.1709, 121.2437] as [number, number],
+    size: 0.018,
+    color: [0.08, 0.75, 0.36] as [number, number, number],
+  },
+  {
+    location: [14.1709, 121.2437] as [number, number],
+    size: 0.008,
+    color: [0.72, 1, 0.82] as [number, number, number],
+  },
+];
 
-const ROTATION_SPEED = 0.0024
-
-function cn(...classes: Array<string | undefined | false>) {
-  return classes.filter(Boolean).join(" ")
-}
-
-const GLOBE_CONFIG: COBEOptions = {
-  width: 800,
-  height: 800,
-  onRender: () => {},
-  devicePixelRatio: 2,
-  phi: 2.15,
-  theta: 0.24,
-  dark: 1,
-  diffuse: 1.45,
-  mapSamples: 26000,
-  mapBrightness: 8.2,
-  baseColor: [0.12, 0.15, 0.18],
-  markerColor: [74 / 255, 222 / 255, 128 / 255],
-  glowColor: [0.88, 1, 0.94],
-  markers: [{ location: [14.2691, 121.4113], size: 0.095 }],
-}
-
-export function Globe({
-  className,
-  config = GLOBE_CONFIG,
-}: {
-  className?: string
-  config?: COBEOptions
-}) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
-  const phiRef = useRef(config.phi ?? 0)
-  const widthRef = useRef(0)
+export function Globe({ className = "" }: { className?: string }) {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const onResize = () => {
-      if (canvasRef.current) {
-        widthRef.current = canvasRef.current.offsetWidth || 560
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    let autoPhi = 0;
+    let dragPhi = 0;
+    let targetDragPhi = 0;
+    let frameId = 0;
+    let globe: ReturnType<typeof createGlobe> | undefined;
+
+    const createOrUpdateGlobe = () => {
+      const size = Math.min(canvas.offsetWidth, canvas.offsetHeight);
+      const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+
+      if (!globe) {
+        globe = createGlobe(canvas, {
+          devicePixelRatio: pixelRatio,
+          width: size,
+          height: size,
+          phi: autoPhi + dragPhi,
+          theta: -0.35,
+          dark: 1,
+          diffuse: 1.2,
+          scale: 1,
+          mapSamples: 16000,
+          mapBrightness: 7,
+          baseColor: [0.14, 0.14, 0.14],
+          markerColor: [1, 1, 1],
+          glowColor: [0.85, 0.85, 0.85],
+          arcColor: [0.92, 0.92, 0.92],
+          arcWidth: 0.8,
+          arcHeight: 0.28,
+          markerElevation: 0.005,
+          markers,
+          arcs: [],
+        });
+      } else {
+        globe.update({ width: size, height: size, devicePixelRatio: pixelRatio });
       }
-    }
+    };
 
-    window.addEventListener("resize", onResize)
-    onResize()
+    createOrUpdateGlobe();
 
-    const globe = createGlobe(canvasRef.current!, {
-      ...config,
-      width: widthRef.current * 2,
-      height: widthRef.current * 2,
-      onRender: (state) => {
-        phiRef.current += ROTATION_SPEED
-        state.phi = phiRef.current
-        state.width = widthRef.current * 2
-        state.height = widthRef.current * 2
-      },
-    })
+    const observer = new ResizeObserver(createOrUpdateGlobe);
+    observer.observe(canvas);
 
-    setTimeout(() => (canvasRef.current!.style.opacity = "1"), 0)
+    const handlePointerMove = (event: PointerEvent) => {
+      if (event.buttons !== 1) return;
+
+      targetDragPhi += event.movementX * 0.006;
+    };
+
+    canvas.addEventListener("pointermove", handlePointerMove);
+
+    const animate = () => {
+      autoPhi += 0.0035;
+      dragPhi += (targetDragPhi - dragPhi) * 0.14;
+      const pulse = (Math.sin(Date.now() * 0.006) + 1) / 2;
+
+      globe?.update({
+        phi: autoPhi + dragPhi,
+        markers: [
+          { ...markers[0], size: 0.024 + pulse * 0.024 },
+          { ...markers[1], size: 0.014 + pulse * 0.012 },
+          { ...markers[2], size: 0.005 + pulse * 0.005 },
+        ],
+      });
+      frameId = requestAnimationFrame(animate);
+    };
+
+    animate();
+
     return () => {
-      globe.destroy()
-      window.removeEventListener("resize", onResize)
-    }
-  }, [config])
+      cancelAnimationFrame(frameId);
+      observer.disconnect();
+      canvas.removeEventListener("pointermove", handlePointerMove);
+      globe?.destroy();
+    };
+  }, []);
 
   return (
-    <div
-      className={cn(
-        "globe-shell",
-        className
-      )}
-    >
-      <canvas
-        className={cn(
-          "globe-canvas"
-        )}
-        ref={canvasRef}
-      />
+    <div className={`globe-horizon ${className}`.trim()}>
+      <canvas ref={canvasRef} className="globe" />
     </div>
-  )
+  );
 }

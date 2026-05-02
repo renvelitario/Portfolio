@@ -1,11 +1,11 @@
 import { useEffect, useMemo, useState } from "react";
-import DotField from "./components/background/DotField.jsx";
-import ChatWidget from "./components/layout/ChatWidget.jsx";
-import Footer from "./components/layout/Footer.jsx";
-import Header from "./components/layout/Header.jsx";
-import HomePage from "./pages/HomePage.jsx";
-import ProjectsPage from "./pages/ProjectsPage.jsx";
-import ContactPage from "./pages/ContactPage.jsx";
+import DotField from "./components/background/DotField.tsx";
+import ChatWidget from "./components/layout/ChatWidget.tsx";
+import Footer from "./components/layout/Footer.tsx";
+import Header from "./components/layout/Header.tsx";
+import HomePage from "./pages/HomePage.tsx";
+import ProjectsPage from "./pages/ProjectsPage.tsx";
+import ContactPage from "./pages/ContactPage.tsx";
 import { useCardGlow } from "./hooks/useCardGlow.js";
 import { useTheme } from "./hooks/useTheme.js";
 import "./App.css";

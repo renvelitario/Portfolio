@@ -1,6 +1,6 @@
-import Card from "../components/ui/Card.jsx";
-import CardTitle from "../components/ui/CardTitle.jsx";
-import Icon from "../components/ui/Icon.jsx";
+import Card from "../components/ui/Card.tsx";
+import CardTitle from "../components/ui/CardTitle.tsx";
+import Icon from "../components/ui/Icon.tsx";
 import { availability, contactLinks } from "../data/content.js";
 import "./ContactPage.css";
 

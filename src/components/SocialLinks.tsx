@@ -1,4 +1,4 @@
-import Icon from "./ui/Icon.jsx";
+import Icon from "./ui/Icon.tsx";
 import "./SocialLinks.css";
 
 const links = [

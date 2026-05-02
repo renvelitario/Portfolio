@@ -18,17 +18,17 @@ const DotField = memo(
     gradientTo = "rgba(180, 151, 207, 0.25)",
     glowColor = "#120F17",
     ...rest
-  }) => {
-    const canvasRef = useRef(null);
-    const glowRef = useRef(null);
-    const dotsRef = useRef([]);
+  }: any) => {
+    const canvasRef = useRef<HTMLCanvasElement | null>(null);
+    const glowRef = useRef<SVGCircleElement | null>(null);
+    const dotsRef = useRef<any[]>([]);
     const mouseRef = useRef({ x: -9999, y: -9999, prevX: -9999, prevY: -9999, speed: 0 });
-    const rafRef = useRef(null);
+    const rafRef = useRef<number | null>(null);
     const sizeRef = useRef({ w: 0, h: 0, offsetX: 0, offsetY: 0 });
     const glowOpacity = useRef(0);
     const engagement = useRef(0);
-    const propsRef = useRef({});
-    const rebuildRef = useRef(null);
+    const propsRef = useRef<any>({});
+    const rebuildRef = useRef<(() => void) | null>(null);
     const glowIdRef = useRef(`dot-field-glow-${Math.random().toString(36).slice(2, 9)}`);
 
     propsRef.current = {
@@ -54,9 +54,9 @@ const DotField = memo(
 
       const ctx = canvas.getContext("2d", { alpha: true });
       const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      let resizeTimer;
+      let resizeTimer: number;
 
-      function buildDots(w, h) {
+      function buildDots(w: number, h: number) {
         const p = propsRef.current;
         const step = p.dotRadius + p.dotSpacing;
         const cols = Math.floor(w / step);
@@ -113,13 +113,13 @@ const DotField = memo(
         };
       }
 
-      function onMouseMove(event) {
+      function onMouseMove(event: MouseEvent) {
         const size = sizeRef.current;
         mouseRef.current.x = event.clientX - size.offsetX;
         mouseRef.current.y = event.clientY - size.offsetY;
       }
 
-      function onWheel(event) {
+      function onWheel(event: WheelEvent) {
         onMouseMove(event);
       }
 
@@ -162,9 +162,9 @@ const DotField = memo(
         glowOpacity.current += (eng - glowOpacity.current) * 0.08;
 
         if (glowEl) {
-          glowEl.setAttribute("cx", mouse.x);
-          glowEl.setAttribute("cy", mouse.y);
-          glowEl.style.opacity = glowOpacity.current;
+          glowEl.setAttribute("cx", String(mouse.x));
+          glowEl.setAttribute("cy", String(mouse.y));
+          glowEl.style.opacity = String(glowOpacity.current);
         }
 
         ctx.clearRect(0, 0, w, h);
@@ -248,7 +248,9 @@ const DotField = memo(
       };
 
       return () => {
-        window.cancelAnimationFrame(rafRef.current);
+        if (rafRef.current !== null) {
+          window.cancelAnimationFrame(rafRef.current);
+        }
         window.clearInterval(speedInterval);
         window.clearTimeout(resizeTimer);
         window.removeEventListener("resize", resize);

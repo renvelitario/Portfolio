@@ -1,4 +1,4 @@
-import Icon from "./Icon.jsx";
+import Icon from "./Icon.tsx";
 import "./CardTitle.css";
 
 export default function CardTitle({ icon, children, className = "" }) {

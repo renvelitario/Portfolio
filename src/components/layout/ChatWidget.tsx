@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Icon from "../ui/Icon.jsx";
+import Icon from "../ui/Icon.tsx";
 import "./ChatWidget.css";
 
 export default function ChatWidget() {
