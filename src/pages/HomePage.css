@@ -46,7 +46,7 @@
   grid-row-start: 1;
   justify-content: flex-start;
   overflow: hidden;
-  background: #030406;
+  background: var(--card);
 }
 
 .div6 {
@@ -349,9 +349,13 @@
   filter:
     drop-shadow(0 -10px 24px rgba(255, 255, 255, 0.22))
     drop-shadow(0 -16px 42px rgba(114, 255, 172, 0.14));
-  cursor: ew-resize;
+  cursor: grab;
   touch-action: none;
   user-select: none;
+}
+
+.globe:active {
+  cursor: grabbing;
 }
 
 .experience {
