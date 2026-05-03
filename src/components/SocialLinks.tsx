@@ -4,7 +4,8 @@ import "./SocialLinks.css";
 const links = [
   { href: "mailto:hello@example.com", label: "Email", icon: "mail" },
   { href: "#", label: "LinkedIn", icon: "linkedin" },
-  { href: "#", label: "GitHub", icon: "github" }
+  { href: "#", label: "GitHub", icon: "github" },
+  { href: "#", label: "Behance", icon: "behance" }
 ];
 
 export default function SocialLinks() {

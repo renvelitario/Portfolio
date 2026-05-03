@@ -1,14 +1,24 @@
 .parent {
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(8, 1fr);
-  grid-template-rows: 78px 146px 108px 88px 96px 96px 112px 112px 112px 112px;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  grid-template-areas:
+    "profile profile connect connect connect connect location location"
+    "profile profile about about about about location location"
+    "profile profile about about about about location location"
+    "skills skills skills skills skills skills skills skills"
+    "experience experience experience experience education education education education"
+    "experience experience experience experience leadership leadership leadership leadership"
+    "testimonials testimonials testimonials testimonials certifications certifications certifications certifications";
+  align-items: stretch;
   gap: 12px;
 }
 
 .parent > .card {
   animation: bentoEnter 0.62s cubic-bezier(0.22, 1, 0.36, 1) both;
   transform-origin: center;
+  min-width: 0;
+  min-height: 0;
 }
 
 .parent > .card:nth-child(1) {
@@ -51,10 +61,6 @@
   animation-delay: 0.56s;
 }
 
-.parent > .card:nth-child(11) {
-  animation-delay: 0.62s;
-}
-
 @keyframes bentoEnter {
   from {
     opacity: 0;
@@ -76,93 +82,71 @@
 }
 
 .div1 {
-  grid-column: span 2 / span 2;
-  grid-row: span 2 / span 2;
-  justify-content: space-between;
+  grid-area: profile;
+  min-height: 280px;
+  justify-content: center;
   align-items: center;
-  gap: 18px;
+  gap: 16px;
 }
 
 .div2 {
-  grid-column: span 2 / span 2;
-  grid-row: span 2 / span 2;
-  grid-column-start: 1;
-  grid-row-start: 3;
-  justify-content: flex-start;
+  grid-area: skills;
+  min-height: 92px;
+  justify-content: center;
+  overflow: visible;
 }
 
 .div3 {
-  grid-column: span 4 / span 4;
-  grid-column-start: 3;
-  grid-row-start: 1;
+  grid-area: connect;
+  min-height: 78px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .div4 {
-  grid-column: span 4 / span 4;
-  grid-row: span 3 / span 3;
-  grid-column-start: 3;
-  grid-row-start: 2;
+  grid-area: about;
+  min-height: 330px;
   justify-content: space-between;
 }
 
 .div5 {
-  grid-column: span 2 / span 2;
-  grid-row: span 3 / span 3;
-  grid-column-start: 7;
-  grid-row-start: 1;
+  grid-area: location;
+  min-height: 330px;
   justify-content: flex-start;
-  overflow: hidden;
+  overflow: clip;
+  overflow-clip-margin: 6px;
   background: var(--card);
 }
 
-.div6 {
-  grid-column: span 2 / span 2;
-  grid-column-start: 7;
-  grid-row-start: 4;
-  justify-content: flex-start;
-}
-
 .div7 {
-  grid-column: span 5 / span 5;
-  grid-row: span 4 / span 4;
-  grid-column-start: 1;
-  grid-row-start: 5;
+  grid-area: experience;
+  min-height: 416px;
   gap: 12px;
 }
 
 .div8 {
-  grid-column: span 3 / span 3;
-  grid-row: span 2 / span 2;
-  grid-column-start: 6;
-  grid-row-start: 5;
+  grid-area: education;
+  min-height: 156px;
   justify-content: flex-start;
 }
 
 .div9 {
-  grid-column: span 3 / span 3;
-  grid-row: span 2 / span 2;
-  grid-column-start: 6;
-  grid-row-start: 9;
+  grid-area: certifications;
+  min-height: 196px;
   justify-content: flex-start;
 }
 
 .div10 {
-  grid-column: span 5 / span 5;
-  grid-row: span 2 / span 2;
-  grid-column-start: 1;
-  grid-row-start: 9;
+  grid-area: testimonials;
+  min-height: 196px;
   justify-content: flex-start;
   overflow: hidden;
 }
 
 .div11 {
-  grid-column: span 3 / span 3;
-  grid-row: span 2 / span 2;
-  grid-column-start: 6;
-  grid-row-start: 7;
+  grid-area: leadership;
+  min-height: 248px;
   justify-content: flex-start;
 }
 
@@ -172,14 +156,14 @@
   align-items: center;
   text-align: center;
   justify-content: center;
-  flex: 1;
+  flex: 0 0 auto;
 }
 
 .profile-avatar {
   position: relative;
   width: 76px;
   height: 76px;
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   border-radius: 50%;
   perspective: 600px;
 }
@@ -222,7 +206,7 @@
 }
 
 .subtitle {
-  margin-top: 10px;
+  margin-top: 8px;
   color: var(--muted);
   line-height: var(--line-body);
   font-size: var(--font-body);
@@ -237,6 +221,7 @@
   font-size: var(--font-body);
   line-height: var(--line-meta);
   text-align: center;
+  margin-top: 2px;
 }
 
 .dot {
@@ -261,23 +246,131 @@
   }
 }
 
-.skills,
-.languages {
+.skills-row {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  align-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 12px;
 }
 
-.skills span,
-.languages p {
-  padding: 8px 10px;
-  border-radius: 999px;
-  background: var(--chip);
+.skills-page-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
   border: 1px solid var(--border);
-  font-size: var(--font-body);
-  font-weight: 500;
-  line-height: 1;
+  border-radius: 50%;
+  background: var(--chip);
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.skills-page-link:hover {
+  background: var(--chip-hover);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+body.light-mode .skills-page-link:hover {
+  border-color: rgba(0, 0, 0, 0.22);
+}
+
+.skills-page-link svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2;
+}
+
+.skills-marquee {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  overflow: hidden;
+  min-height: 72px;
+  padding: 18px 0 8px;
+}
+
+.skills-marquee::before,
+.skills-marquee::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 4;
+  width: 46px;
+  pointer-events: none;
+}
+
+.skills-marquee::before {
+  left: 0;
+  background: linear-gradient(90deg, var(--card), transparent);
+}
+
+.skills-marquee::after {
+  right: 0;
+  background: linear-gradient(270deg, var(--card), transparent);
+}
+
+.skills-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  gap: 14px;
+  animation: skillsMarquee 34s linear infinite;
+  will-change: transform;
+}
+
+.skills-group {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex: 0 0 auto;
+}
+
+.skills-divider {
+  width: 1px;
+  height: 34px;
+  flex: 0 0 auto;
+  background: var(--border);
+  opacity: 0.75;
+}
+
+.skills-action-divider {
+  width: 1px;
+  height: 42px;
+  flex: 0 0 auto;
+  background: var(--border);
+}
+
+.skills-marquee:hover .skills-track {
+  animation-play-state: paused;
+}
+
+@keyframes skillsMarquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(calc(-50% - 4px));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skills-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+  }
+
+  .skills-marquee {
+    overflow: visible;
+  }
 }
 
 .connect-header {
@@ -295,43 +388,6 @@
   font-size: var(--font-body);
   max-width: 100%;
   margin-bottom: auto;
-}
-
-.stats {
-  margin-top: 18px;
-  padding-top: 18px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  width: 100%;
-  border-top: 1px solid var(--border);
-}
-
-.stats div {
-  position: relative;
-  text-align: center;
-  padding: 0 12px;
-}
-
-.stats div:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  top: 4px;
-  right: 0;
-  width: 1px;
-  height: calc(100% - 8px);
-  background: var(--border);
-}
-
-.stats h3 {
-  font-size: 1.55rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.stats p {
-  color: var(--muted);
-  font-size: var(--font-meta);
-  line-height: var(--line-meta);
 }
 
 .location {
@@ -384,7 +440,7 @@
 }
 
 .globe-horizon {
-  width: min(760px, 180%);
+  width: min(520px, 150%);
   aspect-ratio: 1;
   position: absolute;
   left: 50%;
@@ -440,6 +496,12 @@
   cursor: grab;
   touch-action: none;
   user-select: none;
+}
+
+body.light-mode .globe {
+  filter:
+    drop-shadow(0 -10px 22px rgba(255, 255, 255, 0.72))
+    drop-shadow(0 -14px 34px rgba(0, 0, 0, 0.08));
 }
 
 .globe:active {
@@ -672,11 +734,12 @@
 @media (max-width: 1100px) {
   .parent {
     grid-template-columns: 1fr;
-    grid-template-rows: auto;
+    grid-template-areas: none;
     gap: 12px;
   }
 
   .card {
+    grid-area: auto !important;
     grid-column: auto !important;
     grid-row: auto !important;
     min-height: auto;
@@ -684,20 +747,6 @@
 
   .div1 h1 {
     font-size: 1.35rem;
-  }
-
-  .stats {
-    grid-template-columns: 1fr;
-    gap: 14px;
-  }
-
-  .stats div {
-    text-align: left;
-    padding: 0;
-  }
-
-  .stats div:not(:last-child)::after {
-    display: none;
   }
 
   .div10 {

@@ -5,6 +5,7 @@ import Footer from "./components/layout/Footer.tsx";
 import Header from "./components/layout/Header.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import ProjectsPage from "./pages/ProjectsPage.tsx";
+import SkillsPage from "./pages/SkillsPage.tsx";
 import ContactPage from "./pages/ContactPage.tsx";
 import { useCardGlow } from "./hooks/useCardGlow.js";
 import { useTheme } from "./hooks/useTheme.js";
@@ -17,6 +18,10 @@ function getCurrentRoute() {
     return "projects";
   }
 
+  if (path.endsWith("/skills") || path.endsWith("/skills.html")) {
+    return "skills";
+  }
+
   if (path.endsWith("/contact") || path.endsWith("/contact.html")) {
     return "contact";
   }
@@ -24,7 +29,11 @@ function getCurrentRoute() {
   return "home";
 }
 
-function getPageMeta(route) {
+function getPageMeta(route, onNavigate) {
+  if (route === "skills") {
+    return { title: "Skills | @renvelitario", page: <SkillsPage onNavigate={onNavigate} /> };
+  }
+
   if (route === "projects") {
     return { title: "Projects | @renvelitario", page: <ProjectsPage /> };
   }
@@ -33,7 +42,7 @@ function getPageMeta(route) {
     return { title: "Contact | @renvelitario", page: <ContactPage /> };
   }
 
-  return { title: "@renvelitario", page: <HomePage /> };
+  return { title: "@renvelitario", page: <HomePage onNavigate={onNavigate} /> };
 }
 
 export default function App() {
@@ -47,12 +56,6 @@ export default function App() {
     return () => window.removeEventListener("popstate", handlePopState);
   }, []);
 
-  const { title, page } = useMemo(() => getPageMeta(route), [route]);
-
-  useEffect(() => {
-    document.title = title;
-  }, [title]);
-
   function handleNavigate(event, href) {
     const url = new URL(href, window.location.origin);
 
@@ -65,6 +68,12 @@ export default function App() {
     setRoute(getCurrentRoute());
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
+
+  const { title, page } = useMemo(() => getPageMeta(route, handleNavigate), [route]);
+
+  useEffect(() => {
+    document.title = title;
+  }, [title]);
 
   return (
     <>

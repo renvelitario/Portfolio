@@ -1,21 +1,74 @@
-export const skills = [
-  "React",
-  "JavaScript",
-  "Node.js",
-  "UI/UX",
-  "Figma",
-  "PostgreSQL",
-  "Tailwind",
-  "Graphic Design",
-  "Photoshop",
-  "Premiere Pro"
+export const skillGroups = [
+  {
+    title: "Frontend Development",
+    items: [
+      { name: "HTML", logo: "https://cdn.simpleicons.org/html5" },
+      { name: "CSS", logo: "https://cdn.simpleicons.org/css" },
+      { name: "JavaScript ES6+", logo: "https://cdn.simpleicons.org/javascript" },
+      { name: "React.js", logo: "https://cdn.simpleicons.org/react" }
+    ]
+  },
+  {
+    title: "Backend and Database",
+    items: [
+      { name: "Node.js", logo: "https://cdn.simpleicons.org/nodedotjs" },
+      { name: "Express.js", logo: "https://cdn.simpleicons.org/express", lightenOnDark: true },
+      { name: "PHP", logo: "https://cdn.simpleicons.org/php" },
+      { name: "PostgreSQL", logo: "https://cdn.simpleicons.org/postgresql" },
+      { name: "MySQL", logo: "https://cdn.simpleicons.org/mysql" },
+      { name: "Supabase", logo: "https://cdn.simpleicons.org/supabase" },
+      { name: "Neon", logo: "https://cdn.simpleicons.org/neon" }
+    ]
+  },
+  {
+    title: "Programming Languages",
+    items: [
+      { name: "Java", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" },
+      { name: "Python", logo: "https://cdn.simpleicons.org/python" },
+      { name: "C++", logo: "https://cdn.simpleicons.org/cplusplus" }
+    ]
+  },
+  {
+    title: "Tools and Deployment",
+    items: [
+      { name: "Git", logo: "https://cdn.simpleicons.org/git" },
+      { name: "GitHub", logo: "https://cdn.simpleicons.org/github", lightenOnDark: true },
+      { name: "Vercel", logo: "https://cdn.simpleicons.org/vercel", lightenOnDark: true },
+      { name: "Netlify", logo: "https://cdn.simpleicons.org/netlify" },
+      { name: "Railway", logo: "https://cdn.simpleicons.org/railway", lightenOnDark: true },
+      { name: "Render", logo: "https://cdn.simpleicons.org/render", lightenOnDark: true }
+    ]
+  },
+  {
+    title: "Design and Creative Tools",
+    items: [
+      { name: "Figma", logo: "https://cdn.simpleicons.org/figma" },
+      { name: "Photoshop", logo: "https://www.adobe.com/cc-shared/assets/img/product-icons/svg/photoshop.svg" },
+      { name: "Illustrator", logo: "https://www.adobe.com/cc-shared/assets/img/product-icons/svg/illustrator.svg" },
+      { name: "InDesign", logo: "https://www.adobe.com/cc-shared/assets/img/product-icons/svg/indesign.svg" },
+      { name: "Premiere Pro", logo: "https://www.adobe.com/cc-shared/assets/img/product-icons/svg/premiere-pro.svg" },
+      { name: "After Effects", logo: "https://www.adobe.com/cc-shared/assets/img/product-icons/svg/after-effects.svg" },
+      { name: "Canva", logo: "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/canva/canva-original.svg" },
+      { name: "Autodesk Maya", logo: "https://cdn.simpleicons.org/autodeskmaya" },
+      { name: "Blender", logo: "https://cdn.simpleicons.org/blender" }
+    ]
+  }
 ];
 
-export const stats = [
-  { value: "15+", label: "Projects" },
-  { value: "3+", label: "Years Experience" },
-  { value: "2025", label: "Cum Laude" }
-];
+export const skills = skillGroups.flatMap((group) => group.items);
+
+export const mainSkills = [
+  "HTML",
+  "CSS",
+  "JavaScript ES6+",
+  "React.js",
+  "Node.js",
+  "Express.js",
+  "PostgreSQL",
+  "Figma",
+  "Photoshop",
+  "Premiere Pro"
+].map((name) => skills.find((skill) => skill.name === name)).filter(Boolean);
 
 export const experience = [
   {
@@ -53,16 +106,8 @@ export const education = [
     focus: "Specialization in Digital Arts",
     school: "Far Eastern University - Alabang",
     year: "2025"
-  },
-  {
-    degree: "TVL - ICT",
-    focus: "Information & Communications Technology",
-    school: "Mater Ecclesiae School",
-    year: "2021"
   }
 ];
-
-export const languages = ["Filipino", "English", "Korean"];
 
 export const certifications = [
   {

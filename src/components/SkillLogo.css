@@ -1,0 +1,187 @@
+.skill-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--chip);
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  transition:
+    transform 0.18s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.skill-logo:hover {
+  transform: scale(1.08);
+  background: var(--chip-hover);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.skill-logo::after {
+  content: attr(aria-label);
+  position: absolute;
+  left: 50%;
+  top: -16px;
+  z-index: 5;
+  max-width: 160px;
+  padding: 6px 8px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--card);
+  color: var(--text);
+  font-size: var(--font-label);
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, 4px) scale(0.96);
+  transition:
+    opacity 0.16s ease,
+    transform 0.16s ease;
+}
+
+.skill-logo:hover::after,
+.skill-logo:focus-visible::after {
+  opacity: 1;
+  transform: translate(-50%, 0) scale(1);
+}
+
+body.light-mode .skill-logo:hover {
+  border-color: rgba(0, 0, 0, 0.22);
+}
+
+.skill-logo img {
+  width: 22px;
+  height: 22px;
+  display: block;
+  object-fit: contain;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+body:not(.light-mode) .skill-logo-lighten-on-dark img {
+  filter: brightness(0) invert(1);
+}
+
+.skill-logo-with-name {
+  width: auto;
+  min-width: 0;
+  height: 42px;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 0 12px;
+  border-radius: 12px;
+}
+
+.skill-logo-with-name img {
+  flex: 0 0 auto;
+}
+
+.skill-logo-name {
+  color: var(--soft);
+  font-size: var(--font-body);
+  font-weight: 600;
+  line-height: var(--line-meta);
+  white-space: nowrap;
+}
+
+.app-logo {
+  width: 24px;
+  height: 24px;
+  display: block;
+  flex: 0 0 auto;
+}
+
+.adobe-app-logo-bg {
+  fill: transparent;
+}
+
+.adobe-app-logo-border {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.4;
+  transition: stroke 0.2s ease, fill 0.2s ease;
+}
+
+.app-logo text {
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0;
+  fill: currentColor;
+  transition: fill 0.2s ease;
+}
+
+.skill-logo:hover .adobe-app-logo-photoshop .adobe-app-logo-bg {
+  fill: #001d34;
+}
+
+.skill-logo:hover .adobe-app-logo-photoshop .adobe-app-logo-border {
+  stroke: #31a8ff;
+}
+
+.skill-logo:hover .adobe-app-logo-photoshop text {
+  fill: #31a8ff;
+}
+
+.skill-logo:hover .adobe-app-logo-premiere .adobe-app-logo-bg {
+  fill: #2a003f;
+}
+
+.skill-logo:hover .adobe-app-logo-premiere .adobe-app-logo-border,
+.skill-logo:hover .adobe-app-logo-aftereffects .adobe-app-logo-border {
+  stroke: #9999ff;
+}
+
+.skill-logo:hover .adobe-app-logo-premiere text,
+.skill-logo:hover .adobe-app-logo-aftereffects text {
+  fill: #9999ff;
+}
+
+.skill-logo:hover .adobe-app-logo-illustrator .adobe-app-logo-bg {
+  fill: #300000;
+}
+
+.skill-logo:hover .adobe-app-logo-illustrator .adobe-app-logo-border {
+  stroke: #ff9a00;
+}
+
+.skill-logo:hover .adobe-app-logo-illustrator text {
+  fill: #ff9a00;
+}
+
+.skill-logo:hover .adobe-app-logo-indesign .adobe-app-logo-bg {
+  fill: #320015;
+}
+
+.skill-logo:hover .adobe-app-logo-indesign .adobe-app-logo-border {
+  stroke: #ff3366;
+}
+
+.skill-logo:hover .adobe-app-logo-indesign text {
+  fill: #ff3366;
+}
+
+.skill-logo:hover .adobe-app-logo-aftereffects .adobe-app-logo-bg {
+  fill: #1f003f;
+}
+
+.skill-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border: 1px solid currentColor;
+  border-radius: 6px;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0;
+}

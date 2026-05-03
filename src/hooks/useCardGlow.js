@@ -3,7 +3,6 @@ import { useEffect } from "react";
 export function useCardGlow() {
   useEffect(() => {
     const pointer = { x: -9999, y: -9999 };
-    const root = document.documentElement;
     let frame = 0;
 
     function updateCards() {
@@ -11,15 +10,17 @@ export function useCardGlow() {
 
       document.querySelectorAll(".card").forEach((card) => {
         const rect = card.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const distanceX = Math.max(Math.abs(pointer.x - centerX) - rect.width / 2, 0);
-        const distanceY = Math.max(Math.abs(pointer.y - centerY) - rect.height / 2, 0);
+        const localX = pointer.x - rect.left;
+        const localY = pointer.y - rect.top;
+        const distanceX = Math.max(Math.abs(localX - rect.width / 2) - rect.width / 2, 0);
+        const distanceY = Math.max(Math.abs(localY - rect.height / 2) - rect.height / 2, 0);
         const distance = Math.hypot(distanceX, distanceY);
-        const proximity = Math.max(0, 1 - distance / 260);
+        const proximity = Math.max(0, 1 - distance / 220);
 
-        card.style.setProperty("--glow-opacity", (proximity * 0.95).toFixed(2));
-        card.style.setProperty("--glow-size", `${280 + proximity * 220}px`);
+        card.style.setProperty("--glow-opacity", (proximity * 0.62).toFixed(2));
+        card.style.setProperty("--glow-size", `${220 + proximity * 180}px`);
+        card.style.setProperty("--pointer-x", `${localX}px`);
+        card.style.setProperty("--pointer-y", `${localY}px`);
       });
     }
 
@@ -34,8 +35,6 @@ export function useCardGlow() {
     function setPointerFromEvent(event) {
       pointer.x = event.clientX;
       pointer.y = event.clientY;
-      root.style.setProperty("--pointer-x", `${pointer.x}px`);
-      root.style.setProperty("--pointer-y", `${pointer.y}px`);
       scheduleUpdate();
     }
 

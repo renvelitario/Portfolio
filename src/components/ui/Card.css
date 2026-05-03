@@ -1,6 +1,6 @@
 .card {
   --glow-opacity: 0;
-  --glow-size: 340px;
+  --glow-size: 300px;
   background: var(--card);
   border: 2px solid var(--border);
   border-radius: 18px;
@@ -23,15 +23,14 @@
   padding: 3px;
   background: radial-gradient(
     var(--glow-size) circle at var(--pointer-x) var(--pointer-y),
-    rgba(255, 255, 255, 1),
-    rgba(255, 255, 255, 0.5) 22%,
-    rgba(255, 255, 255, 0.18) 44%,
+    var(--glow-core),
+    var(--glow-mid) 28%,
+    var(--glow-soft) 52%,
     transparent 76%
   );
-  background-attachment: fixed;
   opacity: var(--glow-opacity);
   pointer-events: none;
-  transition: opacity 0.16s ease;
+  transition: opacity 0.18s ease;
   -webkit-mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);

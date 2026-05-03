@@ -12,6 +12,9 @@
   --muted: #9a9fa6;
   --soft: #d0d3d7;
   --accent: #ffffff;
+  --glow-core: rgba(255, 255, 255, 0.82);
+  --glow-mid: rgba(255, 255, 255, 0.28);
+  --glow-soft: rgba(255, 255, 255, 0.08);
   --chip: rgba(255, 255, 255, 0.045);
   --chip-hover: rgba(255, 255, 255, 0.07);
   --font-title: 13px;
@@ -47,6 +50,9 @@ body.light-mode {
   --muted: #686868;
   --soft: #4e4e4e;
   --accent: #111111;
+  --glow-core: rgba(0, 0, 0, 0.44);
+  --glow-mid: rgba(0, 0, 0, 0.16);
+  --glow-soft: rgba(0, 0, 0, 0.05);
   --chip: rgba(0, 0, 0, 0.045);
   --chip-hover: rgba(0, 0, 0, 0.08);
 }

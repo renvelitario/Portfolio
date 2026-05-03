@@ -1,17 +1,16 @@
-import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { Fragment, useEffect, useRef, useState, type MouseEvent, type PointerEvent } from "react";
 import Card from "../components/ui/Card.tsx";
 import CardTitle from "../components/ui/CardTitle.tsx";
 import { Globe } from "../components/ui/globe.tsx";
 import Icon from "../components/ui/Icon.tsx";
+import SkillLogo from "../components/SkillLogo.tsx";
 import SocialLinks from "../components/SocialLinks.tsx";
 import {
   certifications,
   education,
   experience,
-  languages,
   leadershipActivities,
-  skills,
-  stats,
+  skillGroups,
   testimonials
 } from "../data/content.js";
 import { useLocalTime } from "../hooks/useLocalTime.js";
@@ -19,7 +18,7 @@ import akaliImage from "../assets/images/akali.jpg";
 import profileImage from "../assets/images/IMG_2129.JPG";
 import "./HomePage.css";
 
-export default function HomePage() {
+export default function HomePage({ onNavigate }: { onNavigate?: (event: MouseEvent<HTMLAnchorElement>, href: string) => void }) {
   const localTime = useLocalTime();
   const testimonialsRef = useRef<HTMLDivElement | null>(null);
   const dragRef = useRef({
@@ -99,7 +98,7 @@ export default function HomePage() {
             <img className="profile-image profile-image-back" src={akaliImage} alt="" aria-hidden="true" />
           </div>
           <h1>Ren Velitario</h1>
-          <p className="subtitle">UI/UX Designer - Web Developer - Digital Creative</p>
+          <p className="subtitle">UI/UX Designer • Web Developer • Digital Creative</p>
         </div>
 
         <div className="status">
@@ -109,11 +108,31 @@ export default function HomePage() {
       </Card>
 
       <Card className="div2">
-        <CardTitle icon="sparkles">Skills</CardTitle>
-        <div className="skills">
-          {skills.map((skill) => (
-            <span key={skill}>{skill}</span>
-          ))}
+        <div className="skills-row">
+          <div className="skills-marquee" aria-label="Skills">
+            <div className="skills-track">
+              {[...skillGroups, ...skillGroups].map((group, index) => (
+                <Fragment key={`${group.title}-${index}`}>
+                  <div className="skills-group" aria-label={group.title}>
+                    {group.items.map((skill) => (
+                      <SkillLogo skill={skill} key={`${group.title}-${skill.name}-${index}`} />
+                    ))}
+                  </div>
+                  <span className="skills-divider" aria-hidden="true" />
+                </Fragment>
+              ))}
+            </div>
+          </div>
+          <span className="skills-action-divider" aria-hidden="true" />
+          <a
+            className="skills-page-link"
+            href="/skills"
+            aria-label="View more skills"
+            title="View more skills"
+            onClick={(event) => onNavigate?.(event, "/skills")}
+          >
+            <Icon name="arrow-up-right" />
+          </a>
         </div>
       </Card>
 
@@ -147,15 +166,6 @@ export default function HomePage() {
             usability, clarity, and solid execution.
           </p>
         </div>
-
-        <div className="stats">
-          {stats.map((item) => (
-            <div key={item.label}>
-              <h3>{item.value}</h3>
-              <p>{item.label}</p>
-            </div>
-          ))}
-        </div>
       </Card>
 
       <Card className="div5">
@@ -170,15 +180,6 @@ export default function HomePage() {
           </div>
         </div>
         <Globe />
-      </Card>
-
-      <Card className="div6">
-        <CardTitle icon="languages">Languages</CardTitle>
-        <div className="languages">
-          {languages.map((language) => (
-            <p key={language}>{language}</p>
-          ))}
-        </div>
       </Card>
 
       <Card className="div7" id="works">
