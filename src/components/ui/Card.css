@@ -1,32 +1,46 @@
 .card {
   --glow-opacity: 0;
   --glow-size: 300px;
+  --card-radius: 18px;
+  --card-ring-width: 3px;
   background: var(--card);
-  border: 2px solid var(--border);
-  border-radius: 18px;
+  border-radius: var(--card-radius);
   padding: 20px;
   display: flex;
   flex-direction: column;
   gap: 14px;
-  transition: 0.3s ease;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
   overflow: visible;
   position: relative;
   isolation: isolate;
 }
 
+.card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  border: 1px solid var(--border);
+  border-radius: inherit;
+  pointer-events: none;
+}
+
 .card::before {
   content: "";
   position: absolute;
-  inset: -2px;
-  z-index: 1;
-  border-radius: 20px;
-  padding: 3px;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  padding: var(--card-ring-width);
   background: radial-gradient(
     var(--glow-size) circle at var(--pointer-x) var(--pointer-y),
-    var(--glow-core),
-    var(--glow-mid) 28%,
-    var(--glow-soft) 52%,
-    transparent 76%
+    var(--glow-core) 0%,
+    var(--glow-core) 12%,
+    var(--glow-mid) 30%,
+    var(--glow-soft) 54%,
+    transparent 70%
   );
   opacity: var(--glow-opacity);
   pointer-events: none;
@@ -43,5 +57,5 @@
 
 .card > * {
   position: relative;
-  z-index: 2;
+  z-index: 1;
 }

@@ -55,21 +55,6 @@ export const skillGroups = [
   }
 ];
 
-export const skills = skillGroups.flatMap((group) => group.items);
-
-export const mainSkills = [
-  "HTML",
-  "CSS",
-  "JavaScript ES6+",
-  "React.js",
-  "Node.js",
-  "Express.js",
-  "PostgreSQL",
-  "Figma",
-  "Photoshop",
-  "Premiere Pro"
-].map((name) => skills.find((skill) => skill.name === name)).filter(Boolean);
-
 export const experience = [
   {
     role: "Junior Associate - IT & Creative Services",
@@ -111,19 +96,19 @@ export const education = [
 
 export const certifications = [
   {
-    title: "UI/UX Design",
-    issuer: "Design systems, wireframes, and user flows",
+    title: "UX Design Professional Certificate",
+    issuer: "Google Career Certificates - Coursera",
     year: "2025"
   },
   {
-    title: "Frontend Development",
-    issuer: "Responsive interfaces with React and JavaScript",
+    title: "Certified Autodesk Maya User",
+    issuer: "Autodesk",
     year: "2024"
   },
   {
-    title: "Digital Arts",
-    issuer: "Brand visuals, layouts, and multimedia production",
-    year: "2024"
+    title: "Information Technology Specialist in Networking",
+    issuer: "CISCO",
+    year: "2023"
   }
 ];
 
@@ -134,12 +119,12 @@ export const leadershipActivities = [
     year: "2023 - 2024"
   },
   {
-    title: "Apex Tamaraws",
+    title: "Apex Tamaraws - FEU Alabang",
     context: "Director for Documentation",
     year: "2024 - 2025"
   },
   {
-    title: "Tertiary Honor Society",
+    title: "Tertiary Honor Society - FEU Alabang",
     context: "Director for Documentation",
     year: "2023 - 2024"
   }
@@ -148,9 +133,9 @@ export const leadershipActivities = [
 export const testimonials = [
   {
     quote:
-      "“Ren exhibits good work ethics and does his role very well. He manages to submit work on time and follows instructions well. Overall, he worked well under IDP and helped the company a lot.”",
+      "Ren exhibits good work ethics and does his role very well. He manages to submit work on time and follows instructions well. Overall, he worked well under IDP and helped the company a lot.",
     name: "Maxene Chase Gilos",
-    role: "IDP Education - Marketing Intern Supervisor"
+    role: "Marketing Intern Supervisor at IDP Education Ltd. Philippines"
   },
   {
     quote:
@@ -197,15 +182,6 @@ export const projects = [
     preview: "preview-brand",
     tags: ["Campaigns", "Social Media"],
     projectUrl: "#"
-  },
-  {
-    title: "Personal Bento Portfolio",
-    description:
-      "A dark-mode portfolio interface with modular CSS, responsive cards, theme persistence, local time, and an expandable chat placeholder.",
-    preview: "preview-portfolio",
-    tags: ["HTML", "CSS", "Portfolio"],
-    projectUrl: "/",
-    sourceUrl: "#"
   },
   {
     title: "Personal Bento Portfolio",

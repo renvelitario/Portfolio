@@ -17,8 +17,8 @@ export function useCardGlow() {
         const distance = Math.hypot(distanceX, distanceY);
         const proximity = Math.max(0, 1 - distance / 220);
 
-        card.style.setProperty("--glow-opacity", (proximity * 0.62).toFixed(2));
-        card.style.setProperty("--glow-size", `${220 + proximity * 180}px`);
+        card.style.setProperty("--glow-opacity", (proximity * 0.78).toFixed(2));
+        card.style.setProperty("--glow-size", `${190 + proximity * 150}px`);
         card.style.setProperty("--pointer-x", `${localX}px`);
         card.style.setProperty("--pointer-y", `${localY}px`);
       });

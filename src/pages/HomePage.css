@@ -81,7 +81,7 @@
   }
 }
 
-.div1 {
+.profile-card {
   grid-area: profile;
   min-height: 280px;
   justify-content: center;
@@ -89,14 +89,14 @@
   gap: 16px;
 }
 
-.div2 {
+.skills-card {
   grid-area: skills;
   min-height: 92px;
   justify-content: center;
   overflow: visible;
 }
 
-.div3 {
+.connect-card {
   grid-area: connect;
   min-height: 78px;
   display: flex;
@@ -104,47 +104,52 @@
   justify-content: center;
 }
 
-.div4 {
+.about-card {
   grid-area: about;
   min-height: 330px;
   justify-content: space-between;
 }
 
-.div5 {
+.location-card {
   grid-area: location;
   min-height: 330px;
   justify-content: flex-start;
-  overflow: clip;
-  overflow-clip-margin: 6px;
-  background: var(--card);
 }
 
-.div7 {
+.location-globe-clip {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+.experience-card {
   grid-area: experience;
   min-height: 416px;
   gap: 12px;
 }
 
-.div8 {
+.education-card {
   grid-area: education;
   min-height: 156px;
   justify-content: flex-start;
 }
 
-.div9 {
+.certifications-card {
   grid-area: certifications;
   min-height: 196px;
   justify-content: flex-start;
 }
 
-.div10 {
+.testimonials-card {
   grid-area: testimonials;
   min-height: 196px;
   justify-content: flex-start;
-  overflow: hidden;
 }
 
-.div11 {
+.leadership-card {
   grid-area: leadership;
   min-height: 248px;
   justify-content: flex-start;
@@ -197,7 +202,7 @@
   transform: rotateY(0deg);
 }
 
-.div1 h1 {
+.profile-card h1 {
   font-size: 1.35rem;
   line-height: 1.1;
   font-weight: 700;
@@ -383,6 +388,9 @@ body.light-mode .skills-page-link:hover {
 }
 
 .about {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
   color: var(--soft);
   line-height: var(--line-body);
   font-size: var(--font-body);
@@ -410,7 +418,7 @@ body.light-mode .skills-page-link:hover {
   margin-bottom: 0;
 }
 
-.div5 h2 {
+.location-card h2 {
   font-size: 1.35rem;
   font-weight: 700;
   line-height: 1.1;
@@ -440,13 +448,15 @@ body.light-mode .skills-page-link:hover {
 }
 
 .globe-horizon {
-  width: min(520px, 150%);
+  width: min(620px, 178%);
   aspect-ratio: 1;
   position: absolute;
   left: 50%;
-  bottom: -34px;
+  bottom: -24px;
   z-index: 2;
   translate: -50% 50%;
+  overflow: hidden;
+  border-radius: 50%;
 }
 
 .globe-horizon::before {
@@ -456,10 +466,10 @@ body.light-mode .skills-page-link:hover {
   z-index: 1;
   border-radius: 50%;
   background:
-    radial-gradient(ellipse at 50% 88%, rgba(255, 255, 255, 0.28), transparent 46%),
-    radial-gradient(ellipse at 50% 76%, rgba(255, 255, 255, 0.2), transparent 58%);
-  filter: blur(18px);
-  opacity: 0.9;
+    radial-gradient(ellipse at 50% 88%, rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.08) 34%, transparent 62%),
+    radial-gradient(ellipse at 50% 72%, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.05) 42%, transparent 72%);
+  filter: blur(24px);
+  opacity: 0.82;
   pointer-events: none;
 }
 
@@ -480,7 +490,6 @@ body.light-mode .skills-page-link:hover {
   pointer-events: none;
 }
 
-.globe-horizon > div,
 .globe {
   width: 100%;
   height: 100%;
@@ -493,9 +502,12 @@ body.light-mode .skills-page-link:hover {
   filter:
     drop-shadow(0 -10px 24px rgba(255, 255, 255, 0.22))
     drop-shadow(0 -16px 42px rgba(255, 255, 255, 0.14));
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, #000 0 58%, rgba(0, 0, 0, 0.82) 68%, rgba(0, 0, 0, 0.34) 78%, transparent 90%);
+  mask-image: radial-gradient(circle at 50% 50%, #000 0 58%, rgba(0, 0, 0, 0.82) 68%, rgba(0, 0, 0, 0.34) 78%, transparent 90%);
   cursor: grab;
   touch-action: none;
   user-select: none;
+  pointer-events: auto;
 }
 
 body.light-mode .globe {
@@ -733,23 +745,49 @@ body.light-mode .globe {
 
 @media (max-width: 1100px) {
   .parent {
-    grid-template-columns: 1fr;
-    grid-template-areas: none;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-areas:
+      "profile profile connect connect"
+      "profile profile location location"
+      "about about location location"
+      "skills skills skills skills"
+      "experience experience education education"
+      "experience experience leadership leadership"
+      "testimonials testimonials certifications certifications";
     gap: 12px;
   }
 
-  .card {
+  .profile-card h1 {
+    font-size: 1.35rem;
+  }
+
+  .testimonials-card {
+    min-height: 210px;
+  }
+}
+
+@media (max-width: 720px) {
+  .parent {
+    grid-template-columns: 1fr;
+    grid-template-areas: none;
+  }
+
+  .parent > .card {
     grid-area: auto !important;
     grid-column: auto !important;
     grid-row: auto !important;
     min-height: auto;
   }
 
-  .div1 h1 {
+  .profile-card h1 {
     font-size: 1.35rem;
   }
 
-  .div10 {
+  .location-card {
+    min-height: 330px;
+  }
+
+  .testimonials-card {
     min-height: 210px;
   }
 }

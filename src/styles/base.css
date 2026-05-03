@@ -12,9 +12,9 @@
   --muted: #9a9fa6;
   --soft: #d0d3d7;
   --accent: #ffffff;
-  --glow-core: rgba(255, 255, 255, 0.82);
-  --glow-mid: rgba(255, 255, 255, 0.28);
-  --glow-soft: rgba(255, 255, 255, 0.08);
+  --glow-core: rgba(255, 255, 255, 1);
+  --glow-mid: rgba(255, 255, 255, 0.72);
+  --glow-soft: rgba(255, 255, 255, 0.28);
   --chip: rgba(255, 255, 255, 0.045);
   --chip-hover: rgba(255, 255, 255, 0.07);
   --font-title: 13px;

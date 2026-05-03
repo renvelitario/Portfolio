@@ -37,16 +37,6 @@ function ProjectCard({ project }) {
   );
 }
 
-function projectRows(items) {
-  const rows = [];
-
-  for (let index = 0; index < items.length; index += 2) {
-    rows.push(items.slice(index, index + 2));
-  }
-
-  return rows;
-}
-
 export default function ProjectsPage() {
   return (
     <main className="projects-page" id="projects-top">
@@ -60,12 +50,8 @@ export default function ProjectsPage() {
       </div>
 
       <section className="projects-grid" aria-label="Featured projects">
-        {projectRows(projects).map((row, index) => (
-          <div className="project-row" key={`row-${index}`}>
-            {row.map((project, rowIndex) => (
-              <ProjectCard project={project} key={`${project.title}-${index}-${rowIndex}`} />
-            ))}
-          </div>
+        {projects.map((project) => (
+          <ProjectCard project={project} key={project.title} />
         ))}
       </section>
 

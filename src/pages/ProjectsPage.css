@@ -43,21 +43,14 @@ body.light-mode .project-filters span:first-child {
 }
 
 .projects-grid {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px;
-}
-
-.project-row {
-  display: flex;
-  gap: 12px;
-  align-items: stretch;
 }
 
 .project-card {
   height: 380px;
   min-width: 0;
-  flex: 0 1 calc(50% - 6px);
   justify-content: space-between;
   transition:
     border-color 0.3s ease,
@@ -267,12 +260,8 @@ body.light-mode .project-filters span:first-child {
     grid-template-columns: 1fr;
   }
 
-  .project-row {
-    flex-direction: column;
-  }
-
-  .project-card {
-    flex-basis: auto;
+  .projects-grid {
+    grid-template-columns: 1fr;
   }
 
   .project-toolbar {
