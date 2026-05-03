@@ -1,14 +1,14 @@
-import aniprintLogo from "../assets/images/aniprint.png";
-import apexLogo from "../assets/images/apex-t.jpg";
-import arthiveImage from "../assets/images/arthive.png";
-import feuLogo from "../assets/images/feu-a.png";
-import gdscLogo from "../assets/images/gdsc.png";
-import honorSocietyLogo from "../assets/images/honsoc.png";
-import idpLogo from "../assets/images/idp.png";
-import materLogo from "../assets/images/mater.jpg";
-import oikosLogo from "../assets/images/oikos.png";
-import taraNaImage from "../assets/images/tara-na.png";
-import techFactorsLogo from "../assets/images/techfactors-inc.jpg";
+import aniprintLogo from "../assets/images/logos/aniprint.png";
+import apexLogo from "../assets/images/logos/apex-t.jpg";
+import feuLogo from "../assets/images/logos/feu-a.png";
+import gdscLogo from "../assets/images/logos/gdsc.png";
+import honorSocietyLogo from "../assets/images/logos/honsoc.png";
+import idpLogo from "../assets/images/logos/idp.png";
+import materLogo from "../assets/images/logos/mater.jpg";
+import oikosLogo from "../assets/images/logos/oikos.png";
+import techFactorsLogo from "../assets/images/logos/techfactors-inc.jpg";
+import arthiveImage from "../assets/images/projects/arthive.png";
+import taraNaImage from "../assets/images/projects/tara-na.png";
 
 export const siteProfile = {
   name: "Ren Velitario",

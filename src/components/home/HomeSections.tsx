@@ -1,6 +1,6 @@
 import { Fragment, type MouseEvent } from "react";
-import akaliImage from "../../assets/images/akali.jpg";
-import profileImage from "../../assets/images/IMG_2129.JPG";
+import akaliImage from "../../assets/images/profile/akali.jpg";
+import profileImage from "../../assets/images/profile/IMG_2129.JPG";
 import {
   awards,
   awardsContent,
