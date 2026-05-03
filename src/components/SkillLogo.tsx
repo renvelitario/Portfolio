@@ -40,7 +40,7 @@ export default function SkillLogo({ skill, showName = false }: { skill: Skill; s
   ].filter(Boolean).join(" ");
 
   return (
-    <span className={className} aria-label={skill.name} title={skill.name}>
+    <span className={className} aria-label={skill.name} title={showName ? undefined : skill.name}>
       {skill.logo ? (
         <img src={skill.logo} alt="" loading="lazy" aria-hidden="true" />
       ) : skill.appLogo ? (

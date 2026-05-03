@@ -1,17 +1,12 @@
 import Icon from "../ui/Icon.tsx";
+import { navigationItems, themeContent } from "../../data/content.js";
 import "./Header.css";
-
-const navItems = [
-  { route: "home", href: "/", icon: "house", label: "Home" },
-  { route: "projects", href: "/projects", icon: "briefcase-business", label: "Works" },
-  { route: "contact", href: "/contact", icon: "send", label: "Contact" }
-];
 
 export default function Header({ currentRoute, isLight, onNavigate, onToggleTheme }) {
   return (
     <header className="site-nav">
       <nav aria-label="Primary navigation">
-        {navItems.map((item) => (
+        {navigationItems.map((item) => (
           <a
             key={item.route}
             href={item.href}
@@ -28,7 +23,7 @@ export default function Header({ currentRoute, isLight, onNavigate, onToggleThem
       <button
         className="theme-toggle"
         type="button"
-        aria-label={isLight ? "Switch to dark mode" : "Switch to light mode"}
+        aria-label={isLight ? themeContent.switchToDarkLabel : themeContent.switchToLightLabel}
         onClick={onToggleTheme}
       >
         <Icon name="sun" className="sun-icon" />

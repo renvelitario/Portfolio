@@ -3,12 +3,13 @@ import DotField from "./components/background/DotField.tsx";
 import ChatWidget from "./components/layout/ChatWidget.tsx";
 import Footer from "./components/layout/Footer.tsx";
 import Header from "./components/layout/Header.tsx";
+import AwardsPage from "./pages/AwardsPage.tsx";
 import HomePage from "./pages/HomePage.tsx";
 import ProjectsPage from "./pages/ProjectsPage.tsx";
 import SkillsPage from "./pages/SkillsPage.tsx";
-import ContactPage from "./pages/ContactPage.tsx";
 import { useCardGlow } from "./hooks/useCardGlow.js";
 import { useTheme } from "./hooks/useTheme.js";
+import { pageTitles } from "./data/content.js";
 import "./App.css";
 
 function getCurrentRoute() {
@@ -26,8 +27,8 @@ function getCurrentRouteFromPath(pathname) {
     return "skills";
   }
 
-  if (path.endsWith("/contact") || path.endsWith("/contact.html")) {
-    return "contact";
+  if (path.endsWith("/awards") || path.endsWith("/awards.html")) {
+    return "awards";
   }
 
   return "home";
@@ -35,18 +36,18 @@ function getCurrentRouteFromPath(pathname) {
 
 function getPageMeta(route, onNavigate) {
   if (route === "skills") {
-    return { title: "Skills | @renvelitario", page: <SkillsPage onNavigate={onNavigate} /> };
+    return { title: pageTitles.skills, page: <SkillsPage onNavigate={onNavigate} /> };
   }
 
   if (route === "projects") {
-    return { title: "Projects | @renvelitario", page: <ProjectsPage /> };
+    return { title: pageTitles.projects, page: <ProjectsPage /> };
   }
 
-  if (route === "contact") {
-    return { title: "Contact | @renvelitario", page: <ContactPage /> };
+  if (route === "awards") {
+    return { title: pageTitles.awards, page: <AwardsPage onNavigate={onNavigate} /> };
   }
 
-  return { title: "@renvelitario", page: <HomePage onNavigate={onNavigate} /> };
+  return { title: pageTitles.home, page: <HomePage onNavigate={onNavigate} /> };
 }
 
 export default function App() {
@@ -83,9 +84,13 @@ export default function App() {
   }, []);
 
   function handleNavigate(event, href) {
-    const url = new URL(href, window.location.origin);
+    const url = new URL(href, window.location.href);
 
     if (url.origin !== window.location.origin) {
+      return;
+    }
+
+    if (url.pathname === window.location.pathname && url.hash) {
       return;
     }
 

@@ -2,10 +2,15 @@ import { Fragment, type MouseEvent } from "react";
 import akaliImage from "../../assets/images/akali.jpg";
 import profileImage from "../../assets/images/IMG_2129.JPG";
 import {
+  awards,
+  awardsContent,
   certifications,
   education,
   experience,
+  homeContent,
   leadershipActivities,
+  siteProfile,
+  skillsContent,
   skillGroups
 } from "../../data/content.js";
 import { useLocalTime } from "../../hooks/useLocalTime.js";
@@ -18,16 +23,26 @@ import Icon from "../ui/Icon.tsx";
 
 type NavigateHandler = (event: MouseEvent<HTMLAnchorElement>, href: string) => void;
 
+function ItemLogo({ alt, src }: { alt: string; src?: string }) {
+  if (!src) return null;
+
+  return (
+    <span className="item-logo">
+      <img src={src} alt={alt} />
+    </span>
+  );
+}
+
 export function ProfileCard() {
   return (
     <Card className="profile-card">
       <div className="profile-content">
-        <div className="profile-avatar" aria-label="Ren Velitario avatar">
-          <img className="profile-image profile-image-front" src={profileImage} alt="Ren Velitario" />
+        <div className="profile-avatar" aria-label={homeContent.profileAvatarLabel}>
+          <img className="profile-image profile-image-front" src={profileImage} alt={homeContent.profileImageAlt} />
           <img className="profile-image profile-image-back" src={akaliImage} alt="" aria-hidden="true" />
         </div>
-        <h1>Ren Velitario</h1>
-        <p className="subtitle">UI/UX Designer / Web Developer / Digital Creative</p>
+        <h1>{siteProfile.name}</h1>
+        <p className="subtitle">{siteProfile.title}</p>
       </div>
     </Card>
   );
@@ -39,11 +54,11 @@ export function ProfileNoteCard() {
       <div className="profile-note">
         <span className="profile-note-title">
           <Icon name="clock" />
-          Status
+          {homeContent.statusLabel}
         </span>
         <div className="profile-note-status">
           <span className="dot" />
-          <strong>Available for freelance & full-time</strong>
+          <strong>{homeContent.statusText}</strong>
         </div>
       </div>
     </Card>
@@ -54,7 +69,7 @@ export function SkillsCard({ onNavigate }: { onNavigate?: NavigateHandler }) {
   return (
     <Card className="skills-card">
       <div className="skills-row">
-        <div className="skills-marquee" aria-label="Skills">
+        <div className="skills-marquee" aria-label={skillsContent.marqueeLabel}>
           <div className="skills-track">
             {[...skillGroups, ...skillGroups].map((group, index) => (
               <Fragment key={`${group.title}-${index}`}>
@@ -72,11 +87,12 @@ export function SkillsCard({ onNavigate }: { onNavigate?: NavigateHandler }) {
         <a
           className="skills-page-link"
           href="/skills"
-          aria-label="View more skills"
-          title="View more skills"
+          aria-label={homeContent.skillsLinkLabel}
+          title={homeContent.skillsLinkLabel}
           onClick={(event) => onNavigate?.(event, "/skills")}
         >
-          <Icon name="arrow-up-right" />
+          <Icon name="chevron-right" />
+          <span>{homeContent.skillsLinkLabel}</span>
         </a>
       </div>
     </Card>
@@ -89,7 +105,7 @@ export function ConnectCard() {
       <div className="card-title connect-header">
         <span className="title-label">
           <Icon name="at-sign" />
-          Connect
+          {homeContent.connectTitle}
         </span>
         <SocialLinks />
       </div>
@@ -100,22 +116,11 @@ export function ConnectCard() {
 export function AboutCard() {
   return (
     <Card className="about-card">
-      <CardTitle icon="user-round">About</CardTitle>
+      <CardTitle icon="user-round">{homeContent.aboutTitle}</CardTitle>
       <div className="about">
-        <p>
-          BSIT graduate specializing in Digital Arts with experience in frontend development,
-          UI/UX design, and multimedia content creation. I build clean, responsive, and
-          user-friendly digital products that focus on both function and design.
-        </p>
-        <p>
-          I have worked on web applications, UI/UX systems, and creative media using HTML, CSS,
-          JavaScript, React, and design tools. I am comfortable working across both design and
-          development to turn ideas into working products.
-        </p>
-        <p>
-          I aim to contribute practical and visually effective digital solutions with a focus on
-          usability, clarity, and solid execution.
-        </p>
+        {homeContent.aboutParagraphs.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
       </div>
     </Card>
   );
@@ -127,12 +132,12 @@ export function LocationCard() {
   return (
     <Card className="location-card">
       <div className="location">
-        <p className="location-kicker">Based in</p>
-        <h2>Laguna, Philippines</h2>
+        <p className="location-kicker">{homeContent.locationKicker}</p>
+        <h2>{siteProfile.location}</h2>
 
         <div className="timezone">
           <p>
-            GMT +8 <span aria-hidden="true">|</span> <span id="local-time">{localTime}</span>
+            {siteProfile.timezone} <span aria-hidden="true">|</span> <span id="local-time">{localTime}</span>
           </p>
         </div>
       </div>
@@ -146,15 +151,20 @@ export function LocationCard() {
 export function ExperienceCard() {
   return (
     <Card className="experience-card" id="works">
-      <CardTitle icon="briefcase-business">Experience</CardTitle>
+      <CardTitle icon="briefcase-business">{homeContent.experienceTitle}</CardTitle>
       <div className="experience">
         {experience.map((item) => (
           <div className="exp-item" key={`${item.role}-${item.year}`}>
-            <div className="exp-top">
-              <h3>{item.role}</h3>
-              <p>{item.year}</p>
+            <div className="item-heading">
+              <ItemLogo src={item.logo} alt={`${item.company} logo`} />
+              <div className="item-heading-copy">
+                <div className="exp-top">
+                  <h3>{item.role}</h3>
+                  <p>{item.year}</p>
+                </div>
+                <h4>{item.company}</h4>
+              </div>
             </div>
-            <h4>{item.company}</h4>
             <ul>
               {item.details.map((detail) => (
                 <li key={detail}>{detail}</li>
@@ -170,14 +180,17 @@ export function ExperienceCard() {
 export function EducationCard() {
   return (
     <Card className="education-card">
-      <CardTitle icon="graduation-cap">Education</CardTitle>
+      <CardTitle icon="graduation-cap">{homeContent.educationTitle}</CardTitle>
       <div className="education">
         {education.map((item) => (
           <div className="education-item" key={item.degree}>
-            <div>
-              <h3>{item.degree}</h3>
-              <p>{item.focus}</p>
-              <p>{item.school}</p>
+            <div className="item-heading">
+              <ItemLogo src={item.logo} alt={`${item.school} logo`} />
+              <div className="item-heading-copy">
+                <h3>{item.degree}</h3>
+                <p>{item.focus}</p>
+                <p>{item.school}</p>
+              </div>
             </div>
             <span>{item.year}</span>
           </div>
@@ -190,13 +203,16 @@ export function EducationCard() {
 export function LeadershipCard() {
   return (
     <Card className="leadership-card">
-      <CardTitle icon="users-round">Leadership</CardTitle>
+      <CardTitle icon="users-round">{homeContent.leadershipTitle}</CardTitle>
       <div className="leadership">
         {leadershipActivities.map((item) => (
           <div className="leadership-item" key={item.title}>
-            <div>
-              <h3>{item.title}</h3>
-              <p>{item.context}</p>
+            <div className="item-heading">
+              <ItemLogo src={item.logo} alt={`${item.title} logo`} />
+              <div className="item-heading-copy">
+                <h3>{item.title}</h3>
+                <p>{item.context}</p>
+              </div>
             </div>
             <span>{item.year}</span>
           </div>
@@ -209,13 +225,52 @@ export function LeadershipCard() {
 export function CertificationsCard() {
   return (
     <Card className="certifications-card">
-      <CardTitle icon="award">Certifications</CardTitle>
+      <CardTitle icon="badge-check">{homeContent.certificationsTitle}</CardTitle>
       <div className="certifications">
         {certifications.map((item) => (
           <div className="cert-item" key={`${item.title}-${item.year}`}>
             <div>
               <h3>{item.title}</h3>
               <p>{item.issuer}</p>
+            </div>
+            <span>{item.year}</span>
+          </div>
+        ))}
+      </div>
+    </Card>
+  );
+}
+
+export function AwardsCard({ onNavigate }: { onNavigate?: NavigateHandler }) {
+  const recentAwards = awards.slice(0, awardsContent.recentCount);
+
+  return (
+    <Card className="awards-card">
+      <div className="card-title section-action-header">
+        <span className="title-label">
+          <Icon name="award" />
+          {homeContent.awardsTitle}
+        </span>
+        <a
+          className="section-page-link"
+          href="/awards"
+          aria-label={homeContent.awardsLinkLabel}
+          title={homeContent.awardsLinkLabel}
+          onClick={(event) => onNavigate?.(event, "/awards")}
+        >
+          <Icon name="chevron-right" />
+          <span>{homeContent.awardsLinkLabel}</span>
+        </a>
+      </div>
+      <div className="awards">
+        {recentAwards.map((item) => (
+          <div className="award-item" key={`${item.title}-${item.year}`}>
+            <div className="item-heading">
+              <ItemLogo src={item.logo} alt={`${item.issuer} logo`} />
+              <div className="item-heading-copy">
+                <h3>{item.title}</h3>
+                <p>Issued by {item.issuer}</p>
+              </div>
             </div>
             <span>{item.year}</span>
           </div>

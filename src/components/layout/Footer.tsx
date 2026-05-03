@@ -1,3 +1,4 @@
+import { siteProfile } from "../../data/content.js";
 import "./Footer.css";
 
 export default function Footer() {
@@ -5,7 +6,7 @@ export default function Footer() {
     <footer className="site-footer">
       <hr />
       <div className="footer-content">
-        <p>&copy; {new Date().getFullYear()} Ren Velitario. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} {siteProfile.name}. {siteProfile.copyright}</p>
       </div>
     </footer>
   );

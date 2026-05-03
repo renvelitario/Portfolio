@@ -1,18 +1,12 @@
 import Icon from "./ui/Icon.tsx";
+import { contactLinks } from "../data/content.js";
 import "./SocialLinks.css";
-
-const links = [
-  { href: "mailto:hello@example.com", label: "Email", icon: "mail" },
-  { href: "#", label: "LinkedIn", icon: "linkedin" },
-  { href: "#", label: "GitHub", icon: "github" },
-  { href: "#", label: "Behance", icon: "behance" }
-];
 
 export default function SocialLinks() {
   return (
     <div className="links">
-      {links.map((link) => (
-        <a key={link.label} href={link.href} aria-label={link.label}>
+      {contactLinks.map((link) => (
+        <a key={link.title} href={link.href} aria-label={link.title} target="_blank">
           <Icon name={link.icon} />
         </a>
       ))}

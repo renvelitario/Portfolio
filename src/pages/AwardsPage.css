@@ -1,0 +1,147 @@
+.awards-page {
+  min-height: calc(100vh - 164px);
+}
+
+.awards-page-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin: 6px 0 16px;
+}
+
+.awards-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.awards-breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--chip);
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.awards-breadcrumb a:hover {
+  transform: translateX(-2px);
+  background: var(--chip-hover);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+body.light-mode .awards-breadcrumb a:hover {
+  border-color: rgba(0, 0, 0, 0.22);
+}
+
+.awards-breadcrumb svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2;
+}
+
+.awards-breadcrumb strong {
+  color: var(--text);
+  font-weight: 700;
+}
+
+.awards-page-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+
+.award-page-card {
+  min-height: 0;
+  justify-content: center;
+}
+
+.award-page-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-width: 0;
+}
+
+.award-page-logo {
+  display: inline-flex;
+  width: 42px;
+  height: 42px;
+  flex: 0 0 42px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.award-page-logo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6px;
+}
+
+.award-page-logo img[src$=".jpg"] {
+  object-fit: cover;
+  padding: 0;
+}
+
+.award-page-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.award-page-date {
+  flex: 0 0 auto;
+  color: var(--muted);
+  font-size: var(--font-meta);
+  font-weight: 600;
+  line-height: var(--line-meta);
+  text-align: right;
+}
+
+.award-page-card h2 {
+  margin-bottom: 6px;
+  font-size: var(--font-title);
+  font-weight: 700;
+  line-height: var(--line-title);
+}
+
+.award-page-card p {
+  color: var(--muted);
+  font-size: var(--font-meta);
+  line-height: var(--line-meta);
+}
+
+@media (max-width: 620px) {
+  .award-page-main {
+    align-items: flex-start;
+  }
+
+  .award-page-date {
+    max-width: 74px;
+  }
+}
+
+@media (max-width: 1100px) {
+  .awards-page-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

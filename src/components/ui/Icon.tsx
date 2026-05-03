@@ -1,5 +1,6 @@
 import {
   ArrowLeft,
+  ArrowUp,
   ArrowUpRight,
   AtSign,
   Award,
@@ -7,6 +8,11 @@ import {
   BriefcaseBusiness,
   Clock,
   ChevronLeft,
+  ChevronRight,
+  ChevronUp,
+  BadgeCheck,
+  Code2,
+  Database,
   ExternalLink,
   FolderKanban,
   Github,
@@ -20,6 +26,7 @@ import {
   MessageCircle,
   MessageSquareText,
   Moon,
+  Palette,
   PenLine,
   Send,
   Sparkles,
@@ -27,18 +34,25 @@ import {
   UsersRound,
   UserRound,
   Quote,
+  Wrench,
   X
 } from "lucide-react";
 
 const icons = {
   "arrow-left": ArrowLeft,
+  "arrow-up": ArrowUp,
   "arrow-up-right": ArrowUpRight,
   "at-sign": AtSign,
   award: Award,
   blocks: Blocks,
   "briefcase-business": BriefcaseBusiness,
+  "badge-check": BadgeCheck,
   clock: Clock,
   "chevron-left": ChevronLeft,
+  "chevron-right": ChevronRight,
+  "chevron-up": ChevronUp,
+  "code-2": Code2,
+  database: Database,
   "external-link": ExternalLink,
   "folder-kanban": FolderKanban,
   github: Github,
@@ -52,6 +66,7 @@ const icons = {
   "message-circle": MessageCircle,
   "message-square-text": MessageSquareText,
   moon: Moon,
+  palette: Palette,
   "pen-line": PenLine,
   send: Send,
   sparkles: Sparkles,
@@ -59,6 +74,7 @@ const icons = {
   "users-round": UsersRound,
   "user-round": UserRound,
   quote: Quote,
+  wrench: Wrench,
   x: X
 };
 

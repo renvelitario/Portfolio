@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState, type PointerEvent } from "react";
-import { testimonials } from "../../data/content.js";
+import { homeContent, testimonials } from "../../data/content.js";
 import Card from "../ui/Card.tsx";
 import CardTitle from "../ui/CardTitle.tsx";
 
@@ -153,7 +153,7 @@ export default function TestimonialsCard() {
 
   return (
     <Card className="testimonials-card">
-      <CardTitle icon="quote">Testimonials</CardTitle>
+      <CardTitle icon="quote">{homeContent.testimonialsTitle}</CardTitle>
       <div className="testimonial-carousel" onPointerEnter={pauseAutoplay} onPointerLeave={resumeAutoplay}>
         <div
           className="testimonials"

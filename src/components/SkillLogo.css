@@ -54,6 +54,12 @@
   transform: translate(-50%, 0) scale(1);
 }
 
+.skill-logo-with-name::after,
+.skill-logo-with-name:hover::after,
+.skill-logo-with-name:focus-visible::after {
+  content: none;
+}
+
 body.light-mode .skill-logo:hover {
   border-color: rgba(0, 0, 0, 0.22);
 }

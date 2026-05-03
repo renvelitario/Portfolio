@@ -42,6 +42,52 @@ body {
   min-height: 100vh;
 }
 
+.page-end {
+  margin: 24px auto 0;
+  max-width: 360px;
+  text-align: center;
+}
+
+.page-end p {
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 10px;
+}
+
+.page-end a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--chip);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: 0.2s ease;
+}
+
+.page-end a svg {
+  width: 15px;
+  height: 15px;
+  stroke-width: 2;
+}
+
+.page-end a:hover {
+  transform: translateY(-1px);
+  border-color: rgba(255, 255, 255, 0.38);
+}
+
+body.light-mode .page-end a:hover {
+  border-color: rgba(0, 0, 0, 0.32);
+}
+
 body.light-mode {
   --bg: #f4f4f1;
   --card: #ffffff;

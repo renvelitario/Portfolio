@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Icon from "../ui/Icon.tsx";
+import { chatContent } from "../../data/content.js";
 import "./ChatWidget.css";
 
 export default function ChatWidget() {
@@ -10,7 +11,7 @@ export default function ChatWidget() {
       <button
         className="chat-fab"
         type="button"
-        aria-label="Open chat"
+        aria-label={chatContent.openLabel}
         aria-expanded={isOpen}
         onClick={() => setIsOpen(true)}
       >
@@ -21,13 +22,13 @@ export default function ChatWidget() {
         <div className="chat-header">
           <div className="chat-title">
             <div className="chat-avatar" aria-hidden="true" />
-            <h2>Chat with Ren</h2>
+            <h2>{chatContent.title}</h2>
           </div>
 
           <button
             className="chat-close"
             type="button"
-            aria-label="Close chat"
+            aria-label={chatContent.closeLabel}
             onClick={() => setIsOpen(false)}
           >
             <Icon name="x" />
@@ -35,11 +36,11 @@ export default function ChatWidget() {
         </div>
 
         <div className="chat-body">
-          <p className="chat-message">Hi, I&apos;m a placeholder for your future AI chat.</p>
+          <p className="chat-message">{chatContent.placeholderMessage}</p>
         </div>
 
         <form className="chat-input">
-          <input type="text" placeholder="Ask something..." disabled />
+          <input type="text" placeholder={chatContent.inputPlaceholder} disabled />
           <button type="button" disabled>
             <Icon name="send" />
           </button>

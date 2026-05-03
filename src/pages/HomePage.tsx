@@ -1,6 +1,7 @@
 import type { MouseEvent } from "react";
 import {
   AboutCard,
+  AwardsCard,
   CertificationsCard,
   ConnectCard,
   EducationCard,
@@ -31,6 +32,7 @@ export default function HomePage({
       <EducationCard />
       <LeadershipCard />
       <CertificationsCard />
+      <AwardsCard onNavigate={onNavigate} />
       <TestimonialsCard />
     </main>
   );

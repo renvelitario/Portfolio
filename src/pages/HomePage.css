@@ -9,7 +9,7 @@
     "skills skills skills skills skills skills skills skills"
     "experience experience experience experience education education education education"
     "experience experience experience experience leadership leadership leadership leadership"
-    "testimonials testimonials testimonials testimonials certifications certifications certifications certifications";
+    "testimonials testimonials certifications certifications certifications awards awards awards";
   align-items: stretch;
   gap: 12px;
 }
@@ -63,6 +63,10 @@
 
 .parent > .card:nth-child(11) {
   animation-delay: 0.62s;
+}
+
+.parent > .card:nth-child(12) {
+  animation-delay: 0.68s;
 }
 
 @keyframes bentoEnter {
@@ -169,6 +173,12 @@
 
 .certifications-card {
   grid-area: certifications;
+  min-height: 196px;
+  justify-content: flex-start;
+}
+
+.awards-card {
+  grid-area: awards;
   min-height: 196px;
   justify-content: flex-start;
 }
@@ -341,17 +351,27 @@
   width: 38px;
   height: 38px;
   flex: 0 0 38px;
+  gap: 0;
+  overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 50%;
   background: var(--chip);
   color: var(--text);
   text-decoration: none;
   transition:
+    width 0.28s ease,
+    flex-basis 0.28s ease,
+    border-radius 0.28s ease,
     background 0.2s ease,
     border-color 0.2s ease;
 }
 
-.skills-page-link:hover {
+.skills-page-link:hover,
+.skills-page-link:focus-visible {
+  width: 132px;
+  flex-basis: 132px;
+  gap: 7px;
+  border-radius: 999px;
   background: var(--chip-hover);
   border-color: rgba(255, 255, 255, 0.22);
 }
@@ -363,7 +383,101 @@ body.light-mode .skills-page-link:hover {
 .skills-page-link svg {
   width: 15px;
   height: 15px;
+  flex: 0 0 15px;
   stroke-width: 2;
+}
+
+.skills-page-link > span {
+  display: inline-block;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1;
+  transition:
+    width 0.28s ease,
+    opacity 0.18s ease 0.06s;
+}
+
+.skills-page-link:hover > span,
+.skills-page-link:focus-visible > span {
+  width: 86px;
+  opacity: 1;
+}
+
+.section-action-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.section-page-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  gap: 0;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  background: var(--chip);
+  color: var(--text);
+  text-decoration: none;
+  transition:
+    width 0.28s ease,
+    flex-basis 0.28s ease,
+    border-radius 0.28s ease,
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.section-page-link:hover,
+.section-page-link:focus-visible {
+  width: 142px;
+  flex-basis: 142px;
+  gap: 7px;
+  border-radius: 999px;
+  background: var(--chip-hover);
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+body.light-mode .section-page-link:hover {
+  border-color: rgba(0, 0, 0, 0.22);
+}
+
+.section-page-link svg {
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+  stroke-width: 2;
+}
+
+.section-page-link > span {
+  display: inline-block;
+  width: 0;
+  opacity: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--text);
+  line-height: 1;
+  transition:
+    width 0.28s ease,
+    opacity 0.18s ease 0.06s;
+}
+
+.section-page-link:hover > span,
+.section-page-link:focus-visible > span {
+  width: 96px;
+  opacity: 1;
 }
 
 .skills-marquee {
@@ -619,35 +733,46 @@ body.light-mode .globe {
   flex-direction: column;
   gap: 16px;
   position: relative;
-  padding-left: 24px;
-}
-
-.experience::before {
-  content: "";
-  position: absolute;
-  top: 7px;
-  bottom: 8px;
-  left: 6px;
-  width: 1px;
-  background: rgba(255, 255, 255, 0.18);
+  padding-right: 24px;
 }
 
 .exp-item {
   position: relative;
   padding-left: 2px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.exp-item:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
 }
 
 .exp-item::before {
   content: "";
   position: absolute;
-  top: 5px;
-  left: -23px;
+  top: 1px;
+  right: -23px;
   width: 9px;
   height: 9px;
   border-radius: 50%;
   background: #ffffff;
   border: 2px solid var(--card);
   box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08), 0 0 12px rgba(255, 255, 255, 0.28);
+}
+
+.exp-item::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  bottom: -22px;
+  right: -17px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.exp-item:last-child::after {
+  display: none;
 }
 
 .exp-top {
@@ -657,10 +782,49 @@ body.light-mode .globe {
   gap: 12px;
 }
 
+.item-heading {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.item-heading-copy {
+  min-width: 0;
+  flex: 1;
+}
+
+.item-logo {
+  display: inline-flex;
+  width: 34px;
+  height: 34px;
+  flex: 0 0 34px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.item-logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 5px;
+  display: block;
+}
+
+.item-logo img[src$=".jpg"] {
+  object-fit: cover;
+  padding: 0;
+}
+
 .experience h3,
 .education h3,
 .certifications h3,
-.leadership h3 {
+.leadership h3,
+.awards h3 {
   font-size: var(--font-title);
   font-weight: 600;
   margin-bottom: 4px;
@@ -670,7 +834,8 @@ body.light-mode .globe {
 .experience p,
 .education p,
 .certifications p,
-.leadership p {
+.leadership p,
+.awards p {
   color: var(--muted);
   line-height: var(--line-meta);
   font-size: var(--font-meta);
@@ -685,7 +850,7 @@ body.light-mode .globe {
 }
 
 .experience ul {
-  padding-left: 16px;
+  padding-left: 44px;
 }
 
 .experience li {
@@ -700,12 +865,15 @@ body.light-mode .globe {
   flex: 1;
   flex-direction: column;
   gap: 12px;
+  padding-right: 24px;
 }
 
 .education-item,
 .cert-item,
-.leadership-item {
+.leadership-item,
+.award-item {
   display: flex;
+  position: relative;
   align-items: flex-start;
   justify-content: space-between;
   gap: 14px;
@@ -713,16 +881,76 @@ body.light-mode .globe {
   border-bottom: 1px solid var(--border);
 }
 
+.education-item::before {
+  content: "";
+  position: absolute;
+  top: 1px;
+  right: -23px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--card);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08), 0 0 12px rgba(255, 255, 255, 0.28);
+}
+
+.education-item::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  bottom: -14px;
+  right: -17px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.education-item:last-child::after {
+  display: none;
+}
+
+.leadership {
+  padding-right: 24px;
+}
+
+.leadership-item::before {
+  content: "";
+  position: absolute;
+  top: 1px;
+  right: -23px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--card);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.08), 0 0 12px rgba(255, 255, 255, 0.28);
+}
+
+.leadership-item::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  bottom: -14px;
+  right: -17px;
+  width: 1px;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.leadership-item:last-child::after {
+  display: none;
+}
+
 .education-item:last-child,
 .cert-item:last-child,
-.leadership-item:last-child {
+.leadership-item:last-child,
+.award-item:last-child {
   padding-bottom: 0;
   border-bottom: 0;
 }
 
 .education-item span,
 .cert-item span,
-.leadership-item span {
+.leadership-item span,
+.award-item span {
   color: var(--muted);
   font-size: var(--font-meta);
   font-weight: 500;
@@ -742,6 +970,31 @@ body.light-mode .globe {
   flex: 1;
   flex-direction: column;
   gap: 12px;
+}
+
+.awards {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 198px;
+  overflow-y: auto;
+  padding-right: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+.awards::-webkit-scrollbar {
+  width: 6px;
+}
+
+.awards::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--border);
+}
+
+.award-item {
+  gap: 10px;
 }
 
 .testimonial-carousel {
@@ -882,7 +1135,8 @@ body.light-mode .testimonial-hit-area-next {
       "skills skills skills skills"
       "experience experience education education"
       "experience experience leadership leadership"
-      "testimonials testimonials certifications certifications";
+      "testimonials testimonials testimonials testimonials"
+      "certifications certifications awards awards";
     gap: 12px;
   }
 
