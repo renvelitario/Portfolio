@@ -5,7 +5,7 @@
   grid-template-areas:
     "profile profile connect connect connect connect location location"
     "profile profile about about about about location location"
-    "profile profile about about about about location location"
+    "profile-note profile-note about about about about location location"
     "skills skills skills skills skills skills skills skills"
     "experience experience experience experience education education education education"
     "experience experience experience experience leadership leadership leadership leadership"
@@ -61,6 +61,10 @@
   animation-delay: 0.56s;
 }
 
+.parent > .card:nth-child(11) {
+  animation-delay: 0.62s;
+}
+
 @keyframes bentoEnter {
   from {
     opacity: 0;
@@ -87,6 +91,15 @@
   justify-content: center;
   align-items: center;
   gap: 16px;
+}
+
+.profile-note-card {
+  grid-area: profile-note;
+  min-height: 92px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
 }
 
 .skills-card {
@@ -123,6 +136,23 @@
   overflow: hidden;
   border-radius: inherit;
   pointer-events: none;
+}
+
+.location-globe-clip::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -22px;
+  z-index: 0;
+  width: min(520px, 150%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(ellipse at 50% 58%, rgba(255, 255, 255, 0.12), transparent 52%),
+    radial-gradient(ellipse at 50% 46%, rgba(255, 255, 255, 0.07), transparent 68%);
+  filter: blur(22px);
+  opacity: 0.7;
+  translate: -50% 50%;
 }
 
 .experience-card {
@@ -227,6 +257,52 @@
   line-height: var(--line-meta);
   text-align: center;
   margin-top: 2px;
+}
+
+.profile-note {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.profile-note-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: var(--font-label);
+  font-weight: 600;
+  line-height: var(--line-meta);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.profile-note-title svg {
+  width: 14px;
+  height: 14px;
+  stroke-width: 2;
+}
+
+.profile-note-status {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-note-status strong {
+  color: var(--text);
+  font-size: var(--font-body);
+  font-weight: 400;
+  line-height: var(--line-body);
+}
+
+.profile-note-card > svg {
+  width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  color: var(--muted);
+  stroke-width: 2;
 }
 
 .dot {
@@ -435,6 +511,8 @@ body.light-mode .skills-page-link:hover {
 
 .timezone p {
   color: var(--muted);
+  font-size: var(--font-body);
+  line-height: var(--line-body);
   margin-bottom: 0;
 }
 
@@ -460,6 +538,7 @@ body.light-mode .skills-page-link:hover {
 }
 
 .globe-horizon::before {
+  --globe-fade-opacity: 0.82;
   content: "";
   position: absolute;
   inset: -4% -2% 46%;
@@ -471,9 +550,11 @@ body.light-mode .skills-page-link:hover {
   filter: blur(24px);
   opacity: 0.82;
   pointer-events: none;
+  animation: globeHaloFadeIn 1.45s ease 0.22s both;
 }
 
 .globe-horizon::after {
+  --globe-fade-opacity: 1;
   content: "";
   position: absolute;
   left: 10%;
@@ -488,6 +569,7 @@ body.light-mode .skills-page-link:hover {
     0 0 18px rgba(255, 255, 255, 0.28),
     0 0 34px rgba(255, 255, 255, 0.18);
   pointer-events: none;
+  animation: globeHaloFadeIn 1.45s ease 0.32s both;
 }
 
 .globe {
@@ -496,6 +578,7 @@ body.light-mode .skills-page-link:hover {
 }
 
 .globe {
+  --globe-fade-opacity: 1;
   display: block;
   position: relative;
   z-index: 2;
@@ -508,6 +591,17 @@ body.light-mode .skills-page-link:hover {
   touch-action: none;
   user-select: none;
   pointer-events: auto;
+  animation: globeHaloFadeIn 1.45s ease 0.2s both;
+}
+
+@keyframes globeHaloFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: var(--globe-fade-opacity, 1);
+  }
 }
 
 body.light-mode .globe {
@@ -656,17 +750,17 @@ body.light-mode .globe {
   min-height: 0;
   flex-direction: column;
   gap: 12px;
+  position: relative;
 }
 
 .testimonials {
   display: flex;
   flex: 1;
-  gap: 12px;
+  gap: 0;
   min-height: 0;
   overflow-x: auto;
   overflow-y: hidden;
   cursor: grab;
-  scroll-behavior: smooth;
   scroll-snap-type: x mandatory;
   scrollbar-width: none;
   touch-action: pan-x;
@@ -679,6 +773,40 @@ body.light-mode .globe {
 
 .testimonials:active {
   cursor: grabbing;
+}
+
+.testimonial-hit-areas {
+  position: absolute;
+  inset: 0 0 22px;
+  z-index: 4;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  pointer-events: none;
+}
+
+.testimonial-hit-area {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  pointer-events: auto;
+}
+
+.testimonial-hit-area-prev {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M17 7L10 14L17 21' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 14 14, w-resize;
+}
+
+.testimonial-hit-area-next {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M11 7L18 14L11 21' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 14 14, e-resize;
+}
+
+body.light-mode .testimonial-hit-area-prev {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M17 7L10 14L17 21' fill='none' stroke='%23171717' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 14 14, w-resize;
+}
+
+body.light-mode .testimonial-hit-area-next {
+  cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Cpath d='M11 7L18 14L11 21' fill='none' stroke='%23171717' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 14 14, e-resize;
 }
 
 .testimonial {
@@ -749,7 +877,8 @@ body.light-mode .globe {
     grid-template-areas:
       "profile profile connect connect"
       "profile profile location location"
-      "about about location location"
+      "profile-note profile-note location location"
+      "about about about about"
       "skills skills skills skills"
       "experience experience education education"
       "experience experience leadership leadership"

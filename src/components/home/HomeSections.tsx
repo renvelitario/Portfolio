@@ -29,10 +29,22 @@ export function ProfileCard() {
         <h1>Ren Velitario</h1>
         <p className="subtitle">UI/UX Designer / Web Developer / Digital Creative</p>
       </div>
+    </Card>
+  );
+}
 
-      <div className="status">
-        <span className="dot" />
-        Available for freelance & full-time
+export function ProfileNoteCard() {
+  return (
+    <Card className="profile-note-card">
+      <div className="profile-note">
+        <span className="profile-note-title">
+          <Icon name="clock" />
+          Status
+        </span>
+        <div className="profile-note-status">
+          <span className="dot" />
+          <strong>Available for freelance & full-time</strong>
+        </div>
       </div>
     </Card>
   );

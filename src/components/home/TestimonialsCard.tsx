@@ -1,42 +1,111 @@
-import { useEffect, useRef, useState, type PointerEvent } from "react";
+import { useEffect, useLayoutEffect, useRef, useState, type PointerEvent } from "react";
 import { testimonials } from "../../data/content.js";
 import Card from "../ui/Card.tsx";
 import CardTitle from "../ui/CardTitle.tsx";
 
 export default function TestimonialsCard() {
   const carouselRef = useRef<HTMLDivElement | null>(null);
+  const resetTimerRef = useRef<number | undefined>(undefined);
+  const currentTrackIndexRef = useRef(testimonials.length > 1 ? 1 : 0);
+  const isPausedRef = useRef(false);
   const dragRef = useRef({
     isDragging: false,
     startX: 0,
     scrollLeft: 0
   });
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const hasLoop = testimonials.length > 1;
+  const carouselItems = hasLoop
+    ? [testimonials[testimonials.length - 1], ...testimonials, testimonials[0]]
+    : testimonials;
+
+  function getRealIndex(trackIndex: number) {
+    if (!hasLoop) return trackIndex;
+    if (trackIndex === 0) return testimonials.length - 1;
+    if (trackIndex === testimonials.length + 1) return 0;
+    return trackIndex - 1;
+  }
+
+  function updateActiveIndex(trackIndex: number) {
+    setActiveTestimonial(getRealIndex(trackIndex));
+  }
+
+  function scrollToTrackIndex(trackIndex: number, behavior: ScrollBehavior = "smooth") {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    window.clearTimeout(resetTimerRef.current);
+    currentTrackIndexRef.current = trackIndex;
+    carousel.scrollTo({ left: carousel.clientWidth * trackIndex, behavior });
+    updateActiveIndex(trackIndex);
+
+    if (!hasLoop || behavior !== "smooth") return;
+
+    resetTimerRef.current = window.setTimeout(() => {
+      const activeIndex = currentTrackIndexRef.current;
+
+      if (activeIndex === 0) {
+        currentTrackIndexRef.current = testimonials.length;
+        carousel.style.scrollBehavior = "auto";
+        carousel.scrollLeft = carousel.clientWidth * testimonials.length;
+        carousel.style.scrollBehavior = "";
+      }
+
+      if (activeIndex === testimonials.length + 1) {
+        currentTrackIndexRef.current = 1;
+        carousel.style.scrollBehavior = "auto";
+        carousel.scrollLeft = carousel.clientWidth;
+        carousel.style.scrollBehavior = "";
+      }
+    }, 420);
+  }
+
+  function goToNext() {
+    const nextIndex = Math.min(currentTrackIndexRef.current + 1, testimonials.length + 1);
+    scrollToTrackIndex(nextIndex);
+  }
+
+  function goToPrevious() {
+    const previousIndex = Math.max(currentTrackIndexRef.current - 1, 0);
+    scrollToTrackIndex(previousIndex);
+  }
+
+  useLayoutEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return undefined;
+
+    scrollToTrackIndex(currentTrackIndexRef.current, "auto");
+
+    function handleResize() {
+      scrollToTrackIndex(currentTrackIndexRef.current, "auto");
+    }
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.clearTimeout(resetTimerRef.current);
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   useEffect(() => {
-    const carousel = carouselRef.current;
     const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-    if (!carousel || reduceMotion || testimonials.length <= 1) {
+    if (reduceMotion || !hasLoop) {
       return undefined;
     }
 
     const interval = window.setInterval(() => {
-      if (dragRef.current.isDragging) return;
+      if (dragRef.current.isDragging || isPausedRef.current) return;
 
-      const nextIndex = (activeTestimonial + 1) % testimonials.length;
-      carousel.scrollTo({ left: carousel.clientWidth * nextIndex, behavior: "smooth" });
-      setActiveTestimonial(nextIndex);
+      goToNext();
     }, 3600);
 
     return () => window.clearInterval(interval);
-  }, [activeTestimonial]);
+  }, [hasLoop]);
 
   function scrollToTestimonial(index: number) {
-    const carousel = carouselRef.current;
-    if (!carousel) return;
-
-    carousel.scrollTo({ left: carousel.clientWidth * index, behavior: "smooth" });
-    setActiveTestimonial(index);
+    scrollToTrackIndex(hasLoop ? index + 1 : index);
   }
 
   function handlePointerDown(event: PointerEvent<HTMLDivElement>) {
@@ -70,15 +139,22 @@ export default function TestimonialsCard() {
     }
 
     const nextIndex = Math.round(carousel.scrollLeft / carousel.clientWidth);
-    const clampedIndex = Math.max(0, Math.min(testimonials.length - 1, nextIndex));
-    carousel.scrollTo({ left: carousel.clientWidth * clampedIndex, behavior: "smooth" });
-    setActiveTestimonial(clampedIndex);
+    const clampedIndex = Math.max(0, Math.min(carouselItems.length - 1, nextIndex));
+    scrollToTrackIndex(clampedIndex);
+  }
+
+  function pauseAutoplay() {
+    isPausedRef.current = true;
+  }
+
+  function resumeAutoplay() {
+    isPausedRef.current = false;
   }
 
   return (
     <Card className="testimonials-card">
       <CardTitle icon="quote">Testimonials</CardTitle>
-      <div className="testimonial-carousel">
+      <div className="testimonial-carousel" onPointerEnter={pauseAutoplay} onPointerLeave={resumeAutoplay}>
         <div
           className="testimonials"
           ref={carouselRef}
@@ -87,8 +163,8 @@ export default function TestimonialsCard() {
           onPointerUp={handlePointerEnd}
           onPointerCancel={handlePointerEnd}
         >
-          {testimonials.map((item) => (
-            <figure className="testimonial" key={`${item.name}-${item.role}`}>
+          {carouselItems.map((item, index) => (
+            <figure className="testimonial" key={`${item.name}-${item.role}-${index}`}>
               <blockquote>{item.quote}</blockquote>
               <figcaption>
                 <strong>{item.name}</strong>
@@ -97,6 +173,24 @@ export default function TestimonialsCard() {
             </figure>
           ))}
         </div>
+        {hasLoop ? (
+          <div className="testimonial-hit-areas">
+            <button
+              className="testimonial-hit-area testimonial-hit-area-prev"
+              type="button"
+              tabIndex={-1}
+              aria-label="Previous testimonial"
+              onClick={goToPrevious}
+            />
+            <button
+              className="testimonial-hit-area testimonial-hit-area-next"
+              type="button"
+              tabIndex={-1}
+              aria-label="Next testimonial"
+              onClick={goToNext}
+            />
+          </div>
+        ) : null}
         <div className="testimonial-dots" aria-label="Testimonials">
           {testimonials.map((item, index) => (
             <button

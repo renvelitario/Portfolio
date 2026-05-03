@@ -5,6 +5,97 @@
   z-index: 1;
 }
 
+.page-transition-stack {
+  display: grid;
+  position: relative;
+  overflow: clip;
+}
+
+.page-transition-layer {
+  grid-area: 1 / 1;
+  width: 100%;
+  transform: translate3d(0, 0, 0);
+}
+
+.page-transition-stack.is-transitioning .page-transition-layer {
+  will-change: transform, opacity;
+}
+
+.page-transition-stack.is-transitioning .card::before {
+  opacity: 0 !important;
+  transition: none;
+}
+
+.page-transition-stack.is-transitioning .skills-marquee::before,
+.page-transition-stack.is-transitioning .skills-marquee::after,
+.page-transition-stack.is-transitioning .globe-horizon::before,
+.page-transition-stack.is-transitioning .globe-horizon::after {
+  opacity: 0 !important;
+  transition: none;
+}
+
+.page-transition-stack.is-transitioning .globe {
+  filter: none;
+}
+
+.page-transition-stack.is-transitioning .dot {
+  animation: none;
+  box-shadow: none;
+}
+
+.page-transition-stack.is-transitioning .parent > .card {
+  animation: none !important;
+  filter: none !important;
+  opacity: 1;
+  transform: none;
+}
+
+.page-transition-stack.has-navigated .parent > .card {
+  animation: none;
+}
+
+.page-transition-exit {
+  z-index: 2;
+  pointer-events: none;
+  animation: pagePushExit 0.62s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.page-transition-enter {
+  z-index: 1;
+}
+
+.page-transition-stack.is-transitioning .page-transition-enter {
+  animation: pagePushEnter 0.62s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.page-transition-enter.is-current {
+  animation: none;
+}
+
+@keyframes pagePushExit {
+  from {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  to {
+    opacity: 0.74;
+    transform: translate3d(-100%, 0, 0) scale(0.992);
+  }
+}
+
+@keyframes pagePushEnter {
+  from {
+    opacity: 0.74;
+    transform: translate3d(100%, 0, 0) scale(0.992);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
 .site-background {
   position: fixed;
   inset: 0;
@@ -26,4 +117,18 @@ body.light-mode .site-background {
 
 body.light-mode .site-background::after {
   background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition-stack {
+    overflow: visible;
+  }
+
+  .page-transition-exit {
+    display: none;
+  }
+
+  .page-transition-stack.is-transitioning .page-transition-enter {
+    animation: none;
+  }
 }

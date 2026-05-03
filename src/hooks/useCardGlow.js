@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 
-export function useCardGlow() {
+export function useCardGlow({ paused = false } = {}) {
   useEffect(() => {
     const pointer = { x: -9999, y: -9999 };
     let frame = 0;
@@ -9,6 +9,11 @@ export function useCardGlow() {
       frame = 0;
 
       document.querySelectorAll(".card").forEach((card) => {
+        if (paused) {
+          card.style.setProperty("--glow-opacity", "0");
+          return;
+        }
+
         const rect = card.getBoundingClientRect();
         const localX = pointer.x - rect.left;
         const localY = pointer.y - rect.top;
@@ -54,5 +59,5 @@ export function useCardGlow() {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", scheduleUpdate);
     };
-  }, []);
+  }, [paused]);
 }
